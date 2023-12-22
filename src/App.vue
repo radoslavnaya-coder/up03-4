@@ -16,11 +16,7 @@ import Footer from './components/Footer.vue'
 <style>
 body{
   background: #001427;
+  font-family: 'Inter', sans-serif;
 }
-.bg-darktheme{
-  background: #001427;
-}
-.text-yellow{
-  color: #F4D58D;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 </style>

@@ -2,10 +2,25 @@
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <router-link :to="{name: 'MainPage'}" class="d-flex align-items-center text-dark text-decoration-none">
-        <span class="fs-4">«Самоход»</span>
+        <!-- <span class="fs-4">Teachat - мессенджер</span> -->
+        <img :src="imgLogo" class="fs-4">
       </router-link>
-
+      <nav class="mx-3">
+        <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+          Новости
+        </router-link>
+         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+          Друзья
+        </router-link>
+         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+          Чаты
+        </router-link>
+         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+          Профиль
+        </router-link>
+      </nav>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        
 <!--        {{ store.isAuth }}-->
 <!--        {{ store.isAdmin }}-->
         <!--        admin routes-->
@@ -33,10 +48,10 @@
         </template>
 
         <!--        auth routes-->
-        <router-link v-if="!store.isAuth" :to="{name: 'Register'}" class="me-3 py-2 text-dark text-decoration-none">
+        <router-link v-if="!store.isAuth" :to="{name: 'Register'}" class="me-3 py-2 text-white text-decoration-none">
           Регистрация
         </router-link>
-        <router-link v-if="!store.isAuth" :to="{name: 'Login'}" class="me-3 py-2 text-dark text-decoration-none">
+        <router-link v-if="!store.isAuth" :to="{name: 'Login'}" class="me-3 py-2 text-white text-decoration-none">
           Авторизация
         </router-link>
         <span v-if="store.isAuth" @click="logOut" role="button"
@@ -59,6 +74,7 @@ import {onMounted} from "vue";
 import {http} from "../axios/index.js";
 import {useRouter} from "vue-router";
 import {store} from "../store/index.js";
+import imgLogo from "@/assets/logo.png";
 
 
 const router = useRouter();
@@ -84,5 +100,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+ .text-teachat {
+        color: #F4D58D;
+    }
 </style>
