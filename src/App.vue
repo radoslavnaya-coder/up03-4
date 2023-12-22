@@ -1,6 +1,6 @@
 <script setup>
 import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+// import Footer from './components/Footer.vue'
 </script>
 
 <template>
@@ -9,14 +9,14 @@ import Footer from './components/Footer.vue'
     <main>
       <router-view/>
     </main>
-    <Footer/>
+    <!-- <Footer/> -->
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 body{
   background: #001427;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', monospace;
 }
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 </style>

@@ -6,6 +6,7 @@ import RegisterPage from '../pages/auth/RegisterPage.vue'
 import LoginPage from '../pages/auth/LoginPage.vue'
 import CartPage from '../pages/cart/CartPage.vue'
 import Posts from '../pages/post/Posts.vue'
+import Friends from '../pages/friend/Friends.vue'
 
 import OrderListPage from '../pages/order/OrderListPage.vue'
 import EditOrdersPage from '../pages/order/EditOrderPage.vue'
@@ -73,6 +74,11 @@ const router = createRouter({
             path: '/posts',
             name: 'Posts',
             component: Posts
+        },
+        {
+            path: '/friends',
+            name: 'Friends',
+            component: Friends
         },
 
 

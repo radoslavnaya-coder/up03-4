@@ -8,13 +8,13 @@ const route = useRoute();
 const router = useRouter();
 
 const form = reactive({
-  email: '',
+  login: '',
   password: ''
 });
 
 const hasErrors = ref(false)
 
-const login = () => {
+const logIn = () => {
 
   http.get('/sanctum/csrf-cookie').then(response => {
     http.post('/api/login', form)
@@ -45,17 +45,17 @@ const goBack = () => {
       <div class="row">
         <div>
           <div class="form-floating mb-3">
-            <input v-model="form.email" type="email" class="form-control" id="floatingInput"
-                   placeholder="name@example.com">
-            <label for="floatingInput">Email</label>
+            <input v-model="form.login" type="text" class="form-control" id="floatingInput"
+                   placeholder="Login">
+            <label for="floatingInput">Логин</label>
           </div>
           <div class="form-floating mb-3">
             <input v-model="form.password" type="password" class="form-control" id="floatingPassword"
                    placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword">Пароль</label>
           </div>
           <div class="text-danger pb-2" v-if="hasErrors">Ошибка входа в аккаунт</div>
-          <button @click="login" class="w-100 btn btn-lg btn-primary mb-3">Войти</button>
+          <button @click="logIn" class="w-100 btn btn-lg bg-teachat__blgr text-white mb-3">Войти</button>
         </div>
       </div>
     </div>
@@ -63,5 +63,7 @@ const goBack = () => {
 </template>
 
 <style scoped>
-
+.bg-teachat__blgr{
+  background: #708D81;
+}
 </style>

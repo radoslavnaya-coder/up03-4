@@ -1,21 +1,21 @@
 <template>
   <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <router-link :to="{name: 'MainPage'}" class="d-flex align-items-center text-dark text-decoration-none">
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4">
+      <router-link :to="{name: 'Posts'}" class="d-flex align-items-center text-dark text-decoration-none">
         <!-- <span class="fs-4">Teachat - мессенджер</span> -->
-        <img :src="imgLogo" class="fs-4">
+        <img :src="imgLogo" class="fs-4 py-2">
       </router-link>
-      <nav class="mx-3">
-        <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+      <nav class="mx-12">
+        <router-link :to="{name: 'Posts'}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Новости
         </router-link>
-         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+         <router-link :to="{name: 'Friends'}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Друзья
         </router-link>
-         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+         <router-link :to="{}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Чаты
         </router-link>
-         <router-link :to="{}" class="me-4 py-2 text-white text-decoration-none fs-4 fw-bolder">
+         <router-link :to="{}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Профиль
         </router-link>
       </nav>
@@ -32,9 +32,7 @@
           </router-link>
           <router-link :to="{name: 'Orders'}" class="me-3 py-2 text-dark text-decoration-none">Заказы
           </router-link>
-
         </template>
-
 
         <!--        client routes-->
         <template v-if="store.isAuth&&!store.isAdmin">
@@ -48,12 +46,13 @@
         </template>
 
         <!--        auth routes-->
-        <router-link v-if="!store.isAuth" :to="{name: 'Register'}" class="me-3 py-2 text-white text-decoration-none">
-          Регистрация
-        </router-link>
-        <router-link v-if="!store.isAuth" :to="{name: 'Login'}" class="me-3 py-2 text-white text-decoration-none">
+        <router-link v-if="!store.isAuth" :to="{name: 'Login'}" class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover">
           Авторизация
         </router-link>
+        <router-link v-if="!store.isAuth" :to="{name: 'Register'}" class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover">
+          Регистрация
+        </router-link>
+        
         <span v-if="store.isAuth" @click="logOut" role="button"
               class="me-3 py-2 text-dark text-decoration-none">Выход</span>
       </nav>
@@ -103,4 +102,7 @@ onMounted(() => {
  .text-teachat {
         color: #F4D58D;
     }
+  .text-teachat__hover:hover{
+      color: #F4D58D;
+  }
 </style>
