@@ -9,7 +9,7 @@
       class="v-col-2"
     >
     </v-img>
-    <v-banner-text class="v-col-9 ml-4 fs-5" style="color: #f4d58d">
+    <v-banner-text class="v-col-9 ml-4 fs-3" style="color: #f4d58d">
       @viliskas
     </v-banner-text>
     <svg
@@ -18,7 +18,7 @@
       height="24"
       viewBox="0 0 24 24"
     >
-      <router-link :to="{ name: 'Friends' }">
+      <router-link :to="{ name: 'ProfileEdit' }">
         <path
           fill="white"
           d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"
@@ -113,5 +113,6 @@ button {
 
 .avatar__block {
   border: 1px solid #f4d58d;
+  margin-left: 1vw;
 }
 </style>

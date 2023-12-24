@@ -9,6 +9,7 @@ import Posts from '../pages/post/Posts.vue'
 import Friends from '../pages/friend/Friends.vue'
 import Chats from '../pages/chat/Chats.vue'
 import Profile from '../pages/profile/Profile.vue'
+import ProfileEdit from '../pages/profile/ProfileEdit.vue'
 
 import OrderListPage from '../pages/order/OrderListPage.vue'
 import EditOrdersPage from '../pages/order/EditOrderPage.vue'
@@ -91,6 +92,11 @@ const router = createRouter({
             path: '/profile',
             name: 'Profile',
             component: Profile
+        },
+        {
+            path: '/profileEdit',
+            name: 'ProfileEdit',
+            component: ProfileEdit
         },
 
     ]
