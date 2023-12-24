@@ -12,10 +12,10 @@
          <router-link :to="{name: 'Friends'}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Друзья
         </router-link>
-         <router-link :to="{}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
+         <router-link :to="{name: 'Chats'}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Чаты
         </router-link>
-         <router-link :to="{}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
+         <router-link :to="{name: 'Profile'}" class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold">
           Профиль
         </router-link>
       </nav>

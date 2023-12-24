@@ -1,5 +1,5 @@
 <script setup>
-import CompFriend from "../../components/friend/CompFriend.vue"
+import CompProfile from "../../components/profile/CompProfile.vue"
 // import {ref} from "vue";
 
 // const posts = ref([
@@ -19,5 +19,5 @@ import CompFriend from "../../components/friend/CompFriend.vue"
 </script>
 <template>
     <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
-    <CompFriend />       
+    <CompProfile />       
 </template>

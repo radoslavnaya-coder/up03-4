@@ -7,6 +7,8 @@ import LoginPage from '../pages/auth/LoginPage.vue'
 import CartPage from '../pages/cart/CartPage.vue'
 import Posts from '../pages/post/Posts.vue'
 import Friends from '../pages/friend/Friends.vue'
+import Chats from '../pages/chat/Chats.vue'
+import Profile from '../pages/profile/Profile.vue'
 
 import OrderListPage from '../pages/order/OrderListPage.vue'
 import EditOrdersPage from '../pages/order/EditOrderPage.vue'
@@ -80,7 +82,16 @@ const router = createRouter({
             name: 'Friends',
             component: Friends
         },
-
+        {
+            path: '/chats',
+            name: 'Chats',
+            component: Chats
+        },
+        {
+            path: '/profile',
+            name: 'Profile',
+            component: Profile
+        },
 
     ]
 })

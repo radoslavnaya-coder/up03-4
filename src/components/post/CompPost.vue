@@ -47,8 +47,10 @@
     <v-card class="mx-auto card bg-teachat card__content" width="690">
       <v-img :src="imgFile" height="690" cover></v-img>
 
-      <v-card-title class="text-teachat">Булочка “парфе”</v-card-title>
-      <v-card-text class="text-white fs-6">
+      <v-card-title class="text-teachat fs-4 my-2"
+        >Булочка “парфе”</v-card-title
+      >
+      <v-card-text class="text-white fs-5">
         Очень вкусные французские булки в самом сердце Италии
       </v-card-text>
     </v-card>
