@@ -19,16 +19,16 @@ const errors = ref([]);
 
 const register = () => {
   console.log(form);
-  // http
-  //   .post(`/api/signup`, form)
-  //   .then((res) => {
-  //     router.push({ name: "Products" });
-  //   })
-  //   .catch((error) => {
-  //     if (error.response.status === 422) {
-  //       errors.value = error.response.data.errors;
-  //     }
-  //   });
+  http
+    .post(`http://176.100.124.36:8000/api`, form)
+    .then((res) => {
+      router.push({ name: "Posts" });
+    })
+    .catch((error) => {
+      if (error.response.status === 422) {
+        errors.value = error.response.data.errors;
+      }
+    });
 };
 </script>
 

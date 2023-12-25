@@ -1,5 +1,6 @@
 <template>
   <!-- Banner without friends -->
+  <v-title class="text-white mx-4">Заявки в друзья</v-title>
   <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
       alt="Avatar"
@@ -34,6 +35,7 @@
     </v-banner-actions>
   </v-banner>
   <!-- Banner with friends -->
+  <text-title class="text-white mx-4">Мои друзья</text-title>
   <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
       alt="Avatar"
