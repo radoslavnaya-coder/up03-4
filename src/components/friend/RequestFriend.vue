@@ -1,21 +1,9 @@
 <script setup>
 import CompFriend from "./Friend.vue"
 // import {ref} from "vue";
-
-// const posts = ref([
-//     {
-//         "id": 2,
-//         "name": "vilaskass",
-//     }, 
-//     {
-//         "id": 3,
-//         "name": "danger",
-//     },
-//     {
-//         "id": 4,
-//         "name": "iter",
-//     }
-// ]);
+const props = defineProps({
+  friendRequest:Object,
+})
 </script>
 <template>
   <v-banner lines="one" class="my-4" bg-color="transparent">
@@ -28,7 +16,7 @@ import CompFriend from "./Friend.vue"
     >
     </v-img>
     <v-banner-text class="v-col-8 ml-4 fs-5" style="color: #f4d58d">
-      @viliskas
+      @{{props.friendRequest.friend_name}}
     </v-banner-text>
     <v-banner-actions class="d-block flex-column v-col-2">
       <v-btn
