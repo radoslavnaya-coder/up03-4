@@ -8,6 +8,7 @@ import CartPage from '../pages/cart/CartPage.vue'
 import Posts from '../pages/post/Posts.vue'
 import Friends from '../pages/friend/Friends.vue'
 import Chats from '../pages/chat/Chats.vue'
+import Dialogs from "../pages/chat/Dialogs.vue";
 import Profile from '../pages/profile/Profile.vue'
 import ProfileEdit from '../pages/profile/ProfileEdit.vue'
 
@@ -16,91 +17,94 @@ import EditOrdersPage from '../pages/order/EditOrderPage.vue'
 import MyOrders from '../pages/order/MyOrders.vue'
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        {
-            path: '/',
-            name: 'MainPage',
-            component: ProductListPage
-        },
-        {
-            path: '/products',
-            name: 'Products',
-            component: ProductListPage
-        },
-        {
-            path: '/products/create',
-            name: 'CreateProduct',
-            component: CreateProductPage
-        },
-        {
-            path: '/products/edit/:productId',
-            name: 'EditProduct',
-            component: EditProductPage
-        },
+  history: createWebHistory(),
+  routes: [
+    {
+      path: "/",
+      name: "MainPage",
+      component: ProductListPage,
+    },
+    {
+      path: "/products",
+      name: "Products",
+      component: ProductListPage,
+    },
+    {
+      path: "/products/create",
+      name: "CreateProduct",
+      component: CreateProductPage,
+    },
+    {
+      path: "/products/edit/:productId",
+      name: "EditProduct",
+      component: EditProductPage,
+    },
 
+    {
+      path: "/orders",
+      name: "Orders",
+      component: OrderListPage,
+    },
+    {
+      path: "/orders/edit/:orderId",
+      name: "EditOrder",
+      component: EditOrdersPage,
+    },
 
-        {
-            path: '/orders',
-            name: 'Orders',
-            component: OrderListPage
-        },
-        {
-            path: '/orders/edit/:orderId',
-            name: 'EditOrder',
-            component: EditOrdersPage
-        },
+    {
+      path: "/register",
+      name: "Register",
+      component: RegisterPage,
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: LoginPage,
+    },
 
-        {
-            path: '/register',
-            name: 'Register',
-            component: RegisterPage
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: LoginPage
-        },
+    {
+      path: "/my_order",
+      name: "MyOrders",
+      component: MyOrders,
+    },
 
-        {
-            path: '/my_order',
-            name: 'MyOrders',
-            component: MyOrders
-        },
-
-        {
-            path: '/cart',
-            name: 'Cart',
-            component: CartPage
-        },
-        {
-            path: '/posts',
-            name: 'Posts',
-            component: Posts
-        },
-        {
-            path: '/friends',
-            name: 'Friends',
-            component: Friends
-        },
-        {
-            path: '/chats',
-            name: 'Chats',
-            component: Chats
-        },
-        {
-            path: '/profile',
-            name: 'Profile',
-            component: Profile
-        },
-        {
-            path: '/profileEdit',
-            name: 'ProfileEdit',
-            component: ProfileEdit
-        },
-
-    ]
-})
+    {
+      path: "/cart",
+      name: "Cart",
+      component: CartPage,
+    },
+    {
+      path: "/posts",
+      name: "Posts",
+      component: Posts,
+    },
+    {
+      path: "/friends",
+      name: "Friends",
+      component: Friends,
+    },
+    {
+      path: "/chats",
+      name: "Chats",
+      component: Chats,
+    },
+    {
+      path: "/dialogs",
+      name: "Dialogs",
+      component: Dialogs,
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
+    },
+    {
+      path: "/profileEdit",
+      name: "ProfileEdit",
+      component: ProfileEdit,
+    },
+  ],
+});
 
 
 export default router

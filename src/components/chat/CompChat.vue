@@ -1,6 +1,7 @@
 <template>
   <!-- Banner with alert  -->
-  <v-banner lines="one" class="my-4" bg-color="transparent">
+  <router-link :to="{name: 'Dialogs'}">
+     <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
       alt="Avatar"
       src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
@@ -24,6 +25,8 @@
         >1</v-banner-action
       >
   </v-banner>
+  </router-link>
+ 
   <!-- Banner without alert -->
   <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
@@ -44,5 +47,9 @@
 <style scoped>
 button {
   border-radius: 10px;
+}
+a{
+  text-decoration: none;
+  color: black;
 }
 </style>
