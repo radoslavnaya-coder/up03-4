@@ -6,6 +6,7 @@ import RegisterPage from '../pages/auth/RegisterPage.vue'
 import LoginPage from '../pages/auth/LoginPage.vue'
 import CartPage from '../pages/cart/CartPage.vue'
 import Posts from '../pages/post/Posts.vue'
+import AddPost from "../pages/post/AddPost.vue"
 import Friends from '../pages/friend/Friends.vue'
 import Chats from '../pages/chat/Chats.vue'
 import Dialogs from "../pages/chat/Dialogs.vue";
@@ -77,6 +78,11 @@ const router = createRouter({
       path: "/posts",
       name: "Posts",
       component: Posts,
+    },
+    {
+      path: "/addpost",
+      name: "AddPost",
+      component: AddPost,
     },
     {
       path: "/friends",
