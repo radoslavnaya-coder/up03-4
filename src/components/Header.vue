@@ -33,7 +33,7 @@
           Профиль
         </router-link>
       </nav>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto align-center">
 
         <!--        {{ store.isAuth }}-->
         <!--        {{ store.isAdmin }}-->
@@ -90,7 +90,7 @@
           v-if="store.isAuth"
           @click="logOut"
           role="button"
-          class="me-3 py-2 text-dark text-decoration-none"
+          class="me-3 py-2 text-white text-decoration-none fs-5 ml-4"
           >Выход</span
         >
       </nav>

@@ -26,9 +26,9 @@ onMounted(() => {
 </script>
 <template>
   <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
-  <v-title class="text-white mx-4">Заявки в друзья</v-title>
+  <v-title class="text-white mx-4 fs-3" >Заявки в друзья</v-title>
   <RequestFriend v-for="fr in friendRequests" :key="fr.id" :friendRequest="fr"/>
 
-  <text-title class="text-white mx-4">Мои друзья</text-title>
+  <text-title class="text-white mx-4 fs-3">Мои друзья</text-title>
   <Friend v-for="f in myFriends" :key="f.id" :friend="f" />
 </template>
