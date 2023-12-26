@@ -12,7 +12,7 @@
       @{{ props.friend.user_name }}
 
     </v-banner-text>
-    <v-banner-actions class="d-block flex-column v-col-2">
+    <v-banner-text class="flex-column v-col-2">
       <v-btn
           block
           class="text-none my-4"
@@ -26,12 +26,13 @@
           block
           class="text-none my-4"
           size="x-large"
-          color="#708D81"
+          color="#8D0801"
+          style="color:#f4d58d"
           variant="flat"
       >
-        Добавить +
+        Удалить
       </v-btn>
-    </v-banner-actions>
+    </v-banner-text>
   </v-banner>
 </template>
 <script setup>

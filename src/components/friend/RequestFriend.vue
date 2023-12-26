@@ -2,7 +2,7 @@
 import CompFriend from "./Friend.vue"
 // import {ref} from "vue";
 const props = defineProps({
-  friendRequest:Object,
+  friendRequest: Object,
 })
 </script>
 <template>
@@ -16,28 +16,23 @@ const props = defineProps({
     >
     </v-img>
     <v-banner-text class="v-col-8 ml-4 fs-5" style="color: #f4d58d">
-      @{{props.friendRequest.friend_name}}
+      @{{ props.friendRequest.friend_name }}
     </v-banner-text>
-    <v-banner-actions class="d-block flex-column v-col-2">
+    <v-banner-text class="d-flex align-center v-col-2">
       <v-btn
           block
           class="text-none my-4"
+          size="x-large"
           color="#708D81"
-          size="x-large"
           variant="flat"
       >
-        Написать
+        Добавить
       </v-btn>
-      <v-btn
-          block
-          class="text-none my-4"
-          size="x-large"
-          color="#8D0801"
-          style="color:#f4d58d"
-          variant="flat"
-      >
-        Удалить
-      </v-btn>
-    </v-banner-actions>
+    </v-banner-text>
   </v-banner>
 </template>
+<style scoped>
+button {
+  border-radius: 10px;
+}
+</style>
