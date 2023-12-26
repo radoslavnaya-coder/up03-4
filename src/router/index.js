@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: "/",
       name: "MainPage",
-      component: ProductListPage,
+      component: Posts,
     },
     {
       path: "/products",
