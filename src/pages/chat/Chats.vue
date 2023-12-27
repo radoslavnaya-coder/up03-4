@@ -1,23 +1,19 @@
 <script setup>
 import CompChat from "../../components/chat/CompChat.vue"
-// import {ref} from "vue";
+import {onMounted,ref} from "vue";
+import {http} from "../../axios/index.js";
 
-// const posts = ref([
-//     {
-//         "id": 2,
-//         "name": "vilaskass",
-//     }, 
-//     {
-//         "id": 3,
-//         "name": "danger",
-//     },
-//     {
-//         "id": 4,
-//         "name": "iter",
-//     }
-// ]);
+
+const chats = ref([]);
+
+
+onMounted(() => {
+  http.get('/api/chat')
+      .then((res) => {
+        chats.value = res.data
+      })
+})
 </script>
 <template>
-    <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
-    <CompChat />       
+    <CompChat v-for="ch in chats" :key="ch.id" :chat="ch" />
 </template>
