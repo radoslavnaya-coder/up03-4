@@ -34,7 +34,7 @@
   </v-container>
   <!-- scroll -->
   <v-infinite-scroll
-    height="595"
+    height="55.5vh"
     side="none"
   >
 <v-container>
