@@ -38,7 +38,7 @@ const register = () => {
   >
     <div class="col">
       <div class="row">
-        <div>
+        <div class="px-0">
           <h1 class="h4 mb-3 fw-normal text-white">
             Пожалуйста заполните все поля
           </h1>
@@ -133,7 +133,12 @@ const register = () => {
             variant="outlined"
             style="color: white"
           ></v-combobox>
-
+          <v-checkbox
+        v-model="terms"
+        color="secondary"
+        class="text-white"
+        label="I agree to site terms and conditions"
+      ></v-checkbox>
           <button
             @click="register"
             class="w-100 btn btn-lg bg-teachat__blgr mb-3 text-white"
