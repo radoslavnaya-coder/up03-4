@@ -43,7 +43,7 @@ const goBack = () => {
   >
     <div class="col">
       <div class="row">
-        <div>
+        <div class="px-0">
           <div class="form-floating mb-3">
             <input
               v-model="form.login"
