@@ -15,6 +15,7 @@
     <v-banner-text class="flex-column v-col-2">
       <v-btn
           block
+          @click="redirectToChat"
           class="text-none my-4"
           color="#708D81"
           size="x-large"
@@ -36,10 +37,18 @@
   </v-banner>
 </template>
 <script setup>
+import {useRouter} from "vue-router";
 
 const props = defineProps({
   friend: Object,
 })
+
+const router = useRouter();
+
+const redirectToChat= ()=>{
+  router.push({name: 'Dialogs'})
+}
+
 </script>
 <style scoped>
 button {

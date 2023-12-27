@@ -26,7 +26,7 @@ const props = defineProps({
           color="#708D81"
           variant="flat"
       >
-        Добавить
+        Принять
       </v-btn>
     </v-banner-text>
   </v-banner>
