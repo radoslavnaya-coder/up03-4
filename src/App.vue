@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 // import Footer from './components/Footer.vue'
 import '@mdi/font/css/materialdesignicons.css'
+import "vue3-toastify/dist/index.css";
 </script>
 
 <template>

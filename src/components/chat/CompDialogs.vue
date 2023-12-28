@@ -54,7 +54,7 @@
       <v-row>
         <v-col class="py-0" cols="11">
           <v-text-field
-              v-model="newMessage"
+              v-model="newMessage.text_messenger"
               variant="outlined"
               clear-icon="mdi-close-circle"
               clearable
@@ -76,33 +76,62 @@
 </template>
 <script setup>
 import Message from "@components/chat/Message.vue"
-import {onMounted, reactive, ref} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import {store} from "../../store/index.js"
 import {http} from "../../axios/index.js";
+import {toast} from "vue3-toastify";
 
 const load = ({done}) => {
   done('empty')
 }
-const newMessage = ref('')
+const newMessage = reactive({
+  "text_messenger": ""
+})
 const messages = ref([])
-
-
+const errors = ref([])
+const updateTimeIntervalId = ref(null)
 
 onMounted(() => {
-  http.get('/api/chat/2')
+  getAllMessages()
+  updateTimeIntervalId.value = setInterval(getAllMessages, 1500);
+})
+
+
+onBeforeUnmount(() => {
+  clearInterval(updateTimeIntervalId.value);
+});
+
+
+const calculateSide = (userId) => {
+  return store.userId === userId.toString() ? 'right'  : 'left';
+}
+
+const getAllMessages = () => {
+  const chatId = 2
+  http.get(`/api/chat/${chatId}`)
       .then((res) => {
         messages.value = res.data
+        const needReadMessages = []
+        for (let m of res.data) {
+          if (m.chat_id === chatId && m.user_id.toString() !== store.userId && m.status === "sent") {
+            needReadMessages.push(m.id)
+          }
+        }
+        //todo this method not secury WARN
+        if (needReadMessages.length > 0) {
+          http.post("/api/message/read_messages", {"ids": needReadMessages})
+              .then(() => getAllMessages())
+              .catch(() => toast.error("Не удалось отправить прочитанные сообщения"))
+        }
       })
-})
-const calculateSide = (userId) => {
-  return store.userId === userId.toString() ? 'left' : 'right';
 }
 
 
-
 const sendMessage = () => {
-  http.post(`/api/post`, post)
+  // todo id chat from router
+  http.post(`/api/chat/2`, newMessage)
       .then((res) => {
+        getAllMessages()
       })
       .catch(error => {
         if (error.response.status === 422) {
