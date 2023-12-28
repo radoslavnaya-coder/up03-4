@@ -1,63 +1,59 @@
-<script setup>
-import CompProfile from "../../components/profile/CompProfile.vue"
-import imgFile from "@assets/post-img__1.png";
-// import {ref} from "vue";
-
-// const posts = ref([
-//     {
-//         "id": 2,
-//         "name": "vilaskass",
-//     }, 
-//     {
-//         "id": 3,
-//         "name": "danger",
-//     },
-//     {
-//         "id": 4,
-//         "name": "iter",
-//     }
-// ]);
-
-</script>
 <template>
-    <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
-    <CompProfile />
+  <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
+  <CompProfile/>
 
-<!--  <v-card class="card bg-teachat mx-auto my-8" width="690" variant="flat">-->
-<!--    &lt;!&ndash;        img user and action&ndash;&gt;-->
-<!--    <v-card-title class="d-flex">-->
-<!--      <v-avatar-->
-<!--          rounded="3"-->
-<!--          size="122px"-->
-<!--          class="avatar__block align-self-center"-->
-<!--      >-->
-<!--        <v-img-->
-<!--            alt="Avatar"-->
-<!--            src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"-->
-<!--        ></v-img>-->
-<!--      </v-avatar>-->
-<!--      <p class="text-teachat avatar__block__name">@viliskas</p>-->
-<!--    </v-card-title>-->
+  <!--  <v-card class="card bg-teachat mx-auto my-8" width="690" variant="flat">-->
+  <!--    &lt;!&ndash;        img user and action&ndash;&gt;-->
+  <!--    <v-card-title class="d-flex">-->
+  <!--      <v-avatar-->
+  <!--          rounded="3"-->
+  <!--          size="122px"-->
+  <!--          class="avatar__block align-self-center"-->
+  <!--      >-->
+  <!--        <v-img-->
+  <!--            alt="Avatar"-->
+  <!--            src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"-->
+  <!--        ></v-img>-->
+  <!--      </v-avatar>-->
+  <!--      <p class="text-teachat avatar__block__name">@viliskas</p>-->
+  <!--    </v-card-title>-->
 
-<!--    &lt;!&ndash;        content&ndash;&gt;-->
-<!--    <v-card class="mx-auto card bg-teachat card__content" width="690">-->
-<!--      <v-img :src="imgFile" height="690" cover></v-img>-->
+  <!--    &lt;!&ndash;        content&ndash;&gt;-->
+  <!--    <v-card class="mx-auto card bg-teachat card__content" width="690">-->
+  <!--      <v-img :src="imgFile" height="690" cover></v-img>-->
 
-<!--      <v-card-title class="text-teachat fs-4 my-2"-->
-<!--      >Булочка “парфе”</v-card-title-->
-<!--      >-->
-<!--      <v-card-text class="text-white fs-5">-->
-<!--        Очень вкусные французские булки в самом сердце Италии-->
-<!--      </v-card-text>-->
-<!--    </v-card>-->
-<!--  </v-card>-->
+  <!--      <v-card-title class="text-teachat fs-4 my-2"-->
+  <!--      >Булочка “парфе”</v-card-title-->
+  <!--      >-->
+  <!--      <v-card-text class="text-white fs-5">-->
+  <!--        Очень вкусные французские булки в самом сердце Италии-->
+  <!--      </v-card-text>-->
+  <!--    </v-card>-->
+  <!--  </v-card>-->
 
 </template>
+<script setup>
+import CompProfile from "../../components/profile/CompProfile.vue"
 
+import {onMounted, ref} from "vue";
+import {http} from "../../axios/index.js";
+
+const profile = ref({});
+
+onMounted(() => {
+  http.get('/api/profile')
+      .then((res) => {
+        profile.value = res.data
+      })
+})
+
+
+</script>
 <style scoped>
 button {
   border-radius: 10px;
 }
+
 .bg-teachat {
   background: #001427;
 }
