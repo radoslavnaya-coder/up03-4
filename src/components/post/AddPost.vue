@@ -20,7 +20,7 @@
           variant="outlined"
       ></v-textarea>
       <span class="d-block mb-4 text-danger" v-if="errors?.description">{{ errors.description[0] }}</span>
-      <v-btn @click="addPost" block class="mt-2">Опубликовать</v-btn>
+      <v-btn @click="addPost" block class="mt-2" color="#1a579a">Опубликовать</v-btn>
     </v-container>
   </v-sheet>
 </template>
