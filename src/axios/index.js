@@ -3,8 +3,8 @@ import axios from "axios";
 import {store} from "../store/index.js";
 
 export const http = axios.create({
-    // baseURL: 'http://176.100.124.36:8000',
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'http://176.100.124.36:8000',
+    // baseURL: 'http://127.0.0.1:8000',
     withCredentials: true,
     headers: {
         "Accept": "application/json"

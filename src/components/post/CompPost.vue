@@ -1,10 +1,10 @@
 <template>
-  <v-card class="card bg-teachat mx-auto my-8" width="690" variant="flat">
+  <v-card class="card bg-teachat mx-auto my-8" width="43em" variant="flat">
     <!--        img user and action-->
-    <v-card-title class="d-flex">
+    <v-card-title class="d-flex cap__block">
       <v-avatar
         rounded="3"
-        size="122"
+        size="6.5em"
         class="avatar__block align-self-center"
       >
         <v-img
@@ -16,13 +16,13 @@
     </v-card-title>
 
     <!--        content-->
-    <v-card class="mx-auto card bg-teachat card__content" width="690">
-      <v-img :src="props.post.content_src" height="690" cover></v-img>
+    <v-card class="mx-auto card bg-teachat card__content" width="43rem">
+      <v-img :src="props.post.content_src" height="43rem" class="card content__img" cover></v-img>
 
-      <v-card-title class="text-teachat fs-4 my-2"
+      <v-card-title class="text-teachat fs-4 my-2 content__p1"
         >{{ props.post.title }}</v-card-title
       >
-      <v-card-text class="text-white fs-5">
+      <v-card-text class="text-white fs-5 content__p">
         {{ props.post.description }}
       </v-card-text>
     </v-card>
@@ -62,5 +62,31 @@ const props = defineProps({
 .avatar__block {
   border: 1px solid #f4d58d;
   margin-left: 1vw;
+}
+@media (max-width: 400px) {
+  .content__img{
+    width: 290px;
+    max-width: 290px;
+    height: 290px;
+    max-height: 290px;
+  }
+  .avatar__block{
+    max-width: 3.5em;
+    max-height: 3.5em;
+  }
+  .cap__block{
+    margin-bottom: 35px;
+  }
+  .avatar__block__name{
+    font-size: 11px;
+  }
+  .content__p1{
+    font-size: 1em !important;
+    margin: 0 !important;
+  }
+  .content__p{
+    font-size: 0.7em !important;
+    margin: 0 !important;
+  }
 }
 </style>

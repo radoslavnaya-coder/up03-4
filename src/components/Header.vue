@@ -173,7 +173,7 @@
             Профиль
           </router-link>
           <v-spacer class="pb-3"></v-spacer>
-          <router-link
+          <!-- <router-link
             v-if="!store.isAuth"
             :to="{ name: 'Login' }"
             class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
@@ -186,7 +186,7 @@
             class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
           >
             Регистрация
-          </router-link>
+          </router-link> -->
 
           <span
             v-if="store.isAuth"
