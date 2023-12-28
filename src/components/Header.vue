@@ -221,6 +221,8 @@ const logOut = () => {
         store.isAuth = false;
         localStorage.removeItem("token");
         localStorage.removeItem("user_role");
+        // todo
+        window.location.href = "/login";
       })
       .catch(() => {
         store.isAuth = false;

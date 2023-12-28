@@ -76,7 +76,7 @@ const router = useRouter();
 const profile = reactive({
   //todo
   "avatar": "xxx",
-  "name": "Cute_cat",
+  "name": "",
   "like_categories_ids": []
 });
 const avatarSrc = ref('')

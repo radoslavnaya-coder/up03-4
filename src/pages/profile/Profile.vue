@@ -34,20 +34,6 @@
 </template>
 <script setup>
 import CompProfile from "../../components/profile/CompProfile.vue"
-
-import {onMounted, ref} from "vue";
-import {http} from "../../axios/index.js";
-
-const profile = ref({});
-
-onMounted(() => {
-  http.get('/api/profile')
-      .then((res) => {
-        profile.value = res.data
-      })
-})
-
-
 </script>
 <style scoped>
 button {
