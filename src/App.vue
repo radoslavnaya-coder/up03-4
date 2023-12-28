@@ -1,6 +1,7 @@
 <script setup>
 import Header from './components/Header.vue'
 // import Footer from './components/Footer.vue'
+import '@mdi/font/css/materialdesignicons.css'
 </script>
 
 <template>

@@ -44,7 +44,7 @@
       <!--      <v-alert type="warning">No more items!</v-alert>-->
     </template>
 
-        <Message v-for="mess in messages" :key="mess.id"  :message="mess" :site="calculateSide(mess.user_id)"/>
+    <Message v-for="mess in messages" :key="mess.id" :message="mess" :site="calculateSide(mess.user_id)"/>
 
 
   </v-infinite-scroll>
@@ -54,7 +54,7 @@
       <v-row>
         <v-col class="py-0" cols="11">
           <v-text-field
-              v-model="message"
+              v-model="newMessage"
               variant="outlined"
               clear-icon="mdi-close-circle"
               clearable
@@ -68,17 +68,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="1">
-          <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              height="60"
-              viewBox="0 4 30 30"
-          >
-            <path
-                fill="white"
-                d="M4 18.5v-5.154L9.846 12L4 10.654V5.5L19.423 12z"
-            />
-          </svg>
+          <v-btn @click="sendMessage" color="#001427" icon="mdi-send" size="x-large"></v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -86,15 +76,17 @@
 </template>
 <script setup>
 import Message from "@components/chat/Message.vue"
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {store} from "../../store/index.js"
 import {http} from "../../axios/index.js";
 
 const load = ({done}) => {
   done('empty')
 }
-
+const newMessage = ref('')
 const messages = ref([])
+
+
 
 onMounted(() => {
   http.get('/api/chat/2')
@@ -104,6 +96,19 @@ onMounted(() => {
 })
 const calculateSide = (userId) => {
   return store.userId === userId.toString() ? 'left' : 'right';
+}
+
+
+
+const sendMessage = () => {
+  http.post(`/api/post`, post)
+      .then((res) => {
+      })
+      .catch(error => {
+        if (error.response.status === 422) {
+          errors.value = error.response.data.errors
+        }
+      })
 }
 
 </script>
