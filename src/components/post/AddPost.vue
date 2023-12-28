@@ -1,45 +1,37 @@
 <template>
   <v-sheet width="600" class="mx-auto" color="#001427">
     <v-container fast-fail @submit.prevent>
-      <v-file-input
-          label="Выбрать фото"
-          variant="outlined"
-          class="text-white pa-0 ma-0"
-          prepend-icon=""
-      ></v-file-input>
+<!--      <v-file-input-->
+<!--          label="Выбрать фото"-->
+<!--          variant="outlined"-->
+<!--          class="text-white pa-0 ma-0"-->
+<!--          prepend-icon=""-->
+<!--      ></v-file-input>-->
+<!--      <span class="text-danger" v-if="errors?.name">{{ errors.name[0] }}</span>-->
       <v-text-field
           v-model="post.title"
           label="Заголовок"
-          :rules="titleRules"
           variant="outlined"
       ></v-text-field>
+      <span class="d-block mb-4 text-danger" v-if="errors?.title">{{ errors.title[0] }}</span>
       <v-textarea
           v-model="post.description"
-          :rules="descriptionRules"
           label="Описание"
           variant="outlined"
       ></v-textarea>
-      <v-btn type="submit" block class="mt-2">Опубликовать</v-btn>
+      <span class="d-block mb-4 text-danger" v-if="errors?.description">{{ errors.description[0] }}</span>
+      <v-btn @click="addPost" block class="mt-2">Опубликовать</v-btn>
     </v-container>
   </v-sheet>
 </template>
 <script setup>
 import {reactive, ref} from "vue";
+import {http} from "../../axios/index.js";
+import {useRouter} from 'vue-router'
 
-const title = ref('')
-const titleRules = ref([
-  value => {
-    if (value?.length > 5 && value?.length < 31) return true
-    return 'Заголок не может быть меньше 5 букв и больше 30'
-  },
-],)
-const descriptionRules = ref([
-  value => {
-    if (value?.length > 5) return true
-    return 'Описание не может быть пустым и должно содержать минимум 5 букв'
-  },
-],)
+const router = useRouter();
 
+const errors = ref([])
 const post = reactive({
   "category_id": 1,
   "title": "",
@@ -47,5 +39,17 @@ const post = reactive({
   "type": "img",
   "content_data": "string"//todo
 })
+
+const addPost = () => {
+  http.post(`/api/post`, post)
+      .then((res) => {
+        //todo Перебросить на мои посты
+        router.push({name: 'Posts'})
+      })
+      .catch(error => {
+        if (error.response.status === 422) {
+          errors.value = error.response.data.errors
+        }
+      })
+}
 </script>
-<script setup></script>
