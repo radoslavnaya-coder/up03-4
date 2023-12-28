@@ -7,7 +7,7 @@
             <p class="fs-3 text-white pr-2">@</p>
             <v-text-field
                 variant="outlined"
-                class="text-white"
+                class="text-white py-1 edit__field"
                 v-model="profile.name"
                 :counter="10"
                 label="Изменить id"
@@ -18,7 +18,7 @@
         <span class="d-block mb-4 text-danger ml-9" v-if="errors?.name">{{ errors.name[0] }}</span>
       </v-col>
       <v-col cols="2">
-        <v-btn @click="editProfile" color="#708D81" class="mt-4 ty-2" style="border-radius: 10px">
+        <v-btn @click="editProfile" color="#708D81" class="mt-4 ty-2 edit__button" style="border-radius: 10px">
           Изменить
         </v-btn>
       </v-col>
@@ -33,7 +33,7 @@
             :src="avatarSrc"
             width="122"
             style="border-radius: 10px; border: 1px solid #f4d58d"
-            class="v-col-9"
+            class="v-col-9 edit__avatar"
         >
         </v-img>
       </v-col>
@@ -92,3 +92,21 @@ const editProfile = () => {
 }
 
 </script>
+<style scoped>
+@media (max-device-width: 480px) {
+  .edit__field{
+    min-width: 8.5em;
+  }
+  .justify-center{
+    justify-content:flex-start !important;
+  }
+  .edit__button{
+    min-width: 9em;
+    margin-left: 12em;
+    font-size: 11px;
+  }
+  .edit__avatar{
+    min-width: 7em;
+  }
+}
+</style>

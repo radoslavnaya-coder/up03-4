@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="600" class="mx-auto" color="#001427">
+  <v-sheet width="600" class="mx-auto add__sheet" color="#001427">
     <v-container fast-fail @submit.prevent>
 <!--      <v-file-input-->
 <!--          label="Выбрать фото"-->
@@ -20,7 +20,7 @@
           variant="outlined"
       ></v-textarea>
       <span class="d-block mb-4 text-danger" v-if="errors?.description">{{ errors.description[0] }}</span>
-      <v-btn @click="addPost" block class="mt-2" color="#1a579a">Опубликовать</v-btn>
+      <v-btn @click="addPost" block class="mt-2" color="#708D81">Опубликовать</v-btn>
     </v-container>
   </v-sheet>
 </template>
@@ -53,3 +53,11 @@ const addPost = () => {
       })
 }
 </script>
+<style scoped>
+@media (max-device-width: 480px) {
+  .add__sheet{
+    width: 300px !important;
+    
+  }
+}
+</style>

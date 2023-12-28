@@ -6,10 +6,10 @@
         :src="profile.avatar_src"
         width="210"
         style="border-radius: 10px; border: 1px solid #f4d58d"
-        class="v-col-2"
+        class="v-col-2 profile__banner"
     >
     </v-img>
-    <v-banner-text class="v-col-9 ml-4 fs-3" style="color: #f4d58d">
+    <v-banner-text class="v-col-9 ml-4 fs-3 profile-user__text" style="color: #f4d58d">
       @{{ profile.name }}
     </v-banner-text>
     <svg
@@ -17,6 +17,7 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
+        class="editProfile__logo"
     >
       <router-link :to="{ name: 'ProfileEdit' }">
         <path
@@ -73,3 +74,22 @@ onMounted(() => {
       })
 })
 </script>
+<style scoped>
+@media (max-device-width: 480px) {
+  .profile__banner{
+    width: 10rem;
+    border-radius: 5px !important;
+  }
+  .profile-user__text{
+    font-size: 1em !important;
+    max-width: 12.5em;
+    padding-right: 0 !important; 
+    padding-left: 0 !important;
+  }
+  .editProfile__logo{
+    width: 1.5em; 
+    height: 1.5em;
+    margin: 0;
+  }
+}
+</style>
