@@ -1,68 +1,94 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center" a>
       <v-col cols="2" md="4">
-        <v-text-field
-          variant="outlined"
-          class="text-white"
-          v-model="firstname"
-          :rules="nameRules"
-          :counter="10"
-          label="Изменить id"
-          placeholder="@"
-          required
-        >
-        </v-text-field>
+        <div class="d-flex justify-lg-space-between align-center">
+          <div class="d-flex w-100 align-center">
+            <p class="fs-3 text-white pr-2">@</p>
+            <v-text-field
+                variant="outlined"
+                class="text-white"
+                v-model="profile.name"
+                :counter="10"
+                label="Изменить id"
+            >
+            </v-text-field>
+          </div>
+        </div>
+        <span class="d-block mb-4 text-danger ml-9" v-if="errors?.name">{{ errors.name[0] }}</span>
       </v-col>
       <v-col cols="2">
-        <v-btn color="#708D81" class="mt-4 ty-2" style="border-radius: 10px">
+        <v-btn @click="editProfile" color="#708D81" class="mt-4 ty-2" style="border-radius: 10px">
           Изменить
         </v-btn>
       </v-col>
+    </v-row>
+    <v-row justify="center">
     </v-row>
 
     <v-row justify="center">
       <v-col cols="3">
         <v-img
-          alt="Avatar"
-          src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-          width="122"
-          style="border-radius: 10px; border: 1px solid #f4d58d"
-          class="v-col-9"
+            alt="Avatar"
+            :src="avatarSrc"
+            width="122"
+            style="border-radius: 10px; border: 1px solid #f4d58d"
+            class="v-col-9"
         >
         </v-img>
       </v-col>
       <v-col cols="3">
-        <v-file-input
-          label="Выбрать фото"
-          variant="outlined"
-          class="text-white v-col-10 pa-0 ma-0"
-          prepend-icon=""
-        ></v-file-input>
-        <v-btn color="#708D81" class="mt-4" style="border-radius: 10px">
-          Изменить
-        </v-btn>
+        <!--        <v-file-input-->
+        <!--          label="Выбрать фото"-->
+        <!--          variant="outlined"-->
+        <!--          class="text-white v-col-10 pa-0 ma-0"-->
+        <!--          prepend-icon=""-->
+        <!--        ></v-file-input>-->
+        <!--        <v-btn color="#708D81" class="mt-4" style="border-radius: 10px">-->
+        <!--          Изменить-->
+        <!--        </v-btn>-->
       </v-col>
     </v-row>
   </v-container>
 </template>
-<script>
-export default {
-  data: () => ({
-    valid: false,
-    firstname: "@",
-    nameRules: [
-      (value) => {
-        if (value) return true;
+<script setup>
+import {onMounted, reactive, ref} from "vue";
+import {http} from "../../axios/index.js";
+import {useRouter} from 'vue-router'
 
-        return "Используйте идентификатор @";
-      },
-      (value) => {
-        if (value?.length <= 13) return true;
+const router = useRouter();
 
-        return "Имя не может быть длиннее 12 знаков";
-      },
-    ],
-  }),
-};
+const profile = reactive({
+  //todo
+  "avatar": "xxx",
+  "name": "Cute_cat",
+  "like_categories_ids": []
+});
+const avatarSrc = ref('')
+const errors = ref([])
+
+
+onMounted(() => {
+  http.get('/api/profile')
+      .then((res) => {
+        profile.value = res.data
+
+        avatarSrc.value = res.data.avatar_src
+        profile.name = res.data.name
+        // profile.like_categories_ids=res.data.like_categories  todo array object => array ids
+      })
+})
+
+const editProfile = () => {
+  http.put(`/api/profile`, profile)
+      .then((res) => {
+        router.push({name: 'Profile'})
+      })
+      .catch(error => {
+        if (error.response.status === 422) {
+          errors.value = error.response.data.errors
+        }
+      })
+}
+
 </script>

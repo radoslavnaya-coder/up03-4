@@ -173,20 +173,20 @@
                     Профиль
                   </router-link>
                   <v-spacer class="pb-3"></v-spacer>
-                  <router-link
-                      v-if="!store.isAuth"
-                      :to="{ name: 'Login' }"
-                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
-                  >
-                    Авторизация
-                  </router-link>
-                  <router-link
-                      v-if="!store.isAuth"
-                      :to="{ name: 'Register' }"
-                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
-                  >
-                    Регистрация
-                  </router-link>
+<!--                  <router-link-->
+<!--                      v-if="!store.isAuth"-->
+<!--                      :to="{ name: 'Login' }"-->
+<!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
+<!--                  >-->
+<!--                    Авторизация-->
+<!--                  </router-link>-->
+<!--                  <router-link-->
+<!--                      v-if="!store.isAuth"-->
+<!--                      :to="{ name: 'Register' }"-->
+<!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
+<!--                  >-->
+<!--                    Регистрация-->
+<!--                  </router-link>-->
 
                   <span
                       v-if="store.isAuth"
@@ -232,8 +232,7 @@ const logOut = () => {
       });
 };
 
-onMounted(() => {
-});
+onMounted(() => {});
 </script>
 <script>
 export default {
