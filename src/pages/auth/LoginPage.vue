@@ -11,9 +11,9 @@
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="Login"
+                placeholder="Email"
             />
-            <label for="floatingInput">Логин</label>
+            <label for="floatingInput">Email</label>
           </div>
           <div class="form-floating mb-3">
             <input

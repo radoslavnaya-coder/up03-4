@@ -50,6 +50,21 @@
       </v-col>
     </v-row>
   </v-container>
+<!--//todo like categories-->
+<!--  <v-combobox-->
+<!--      multiple-->
+<!--      label="Любимые категории"-->
+<!--      :items="[-->
+<!--              'Спорт',-->
+<!--              'Музыка',-->
+<!--              'Рисование',-->
+<!--              'Мода',-->
+<!--              'Повседневная жизнь',-->
+<!--            ]"-->
+<!--      variant="outlined"-->
+<!--      style="color: white"-->
+<!--  ></v-combobox>-->
+
 </template>
 <script setup>
 import {onMounted, reactive, ref} from "vue";
