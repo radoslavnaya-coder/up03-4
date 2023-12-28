@@ -1,211 +1,208 @@
 <template>
-  <template v-if="!isMobile()">
-    <header>
-      <div class="d-flex flex-column flex-md-row align-items-center">
+  <header class="desktop">
+    <div class="d-flex flex-column flex-md-row align-items-center">
+      <router-link
+          :to="{ name: 'Posts' }"
+          class="d-flex align-items-center text-dark text-decoration-none"
+      >
+        <img :src="imgLogo" class="fs-4 py-2"/>
+      </router-link>
+      <nav class="mx-12">
         <router-link
             :to="{ name: 'Posts' }"
-            class="d-flex align-items-center text-dark text-decoration-none"
+            class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
         >
-          <img :src="imgLogo" class="fs-4 py-2"/>
+          Новости
         </router-link>
-        <nav class="mx-12">
-          <router-link
-              :to="{ name: 'Posts' }"
-              class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-          >
-            Новости
-          </router-link>
-          <router-link
-              :to="{ name: 'Friends' }"
-              class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-          >
-            Друзья
-          </router-link>
-          <router-link
-              :to="{ name: 'Chats' }"
-              class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-          >
-            Чаты
-          </router-link>
-          <router-link
-              :to="{ name: 'Profile' }"
-              class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-          >
-            Профиль
-          </router-link>
-        </nav>
-        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto align-center">
-          <!--        {{ store.isAuth }}-->
-          <!--        {{ store.isAdmin }}-->
-          <!--        admin routes-->
-          <template v-if="store.isAuth && store.isAdmin">
-            <router-link
-                :to="{ name: 'CreateProduct' }"
-                class="me-3 py-2 text-dark text-decoration-none"
-            >Добавить продукт
-            </router-link>
-            <router-link
-                :to="{ name: 'Products' }"
-                class="me-3 py-2 text-dark text-decoration-none"
-            >Список продуктов
-            </router-link>
-            <router-link
-                :to="{ name: 'Orders' }"
-                class="me-3 py-2 text-dark text-decoration-none"
-            >Заказы
-            </router-link>
-          </template>
-
-          <!--        client routes-->
-          <template v-if="store.isAuth && !store.isAdmin">
-            <!-- <router-link :to="{name: 'Products'}" class="me-3 py-2 text-dark text-decoration-none">Список продуктов
-          </router-link>
-          <router-link :to="{name: 'MyOrders'}" class="me-3 py-2 text-dark text-decoration-none">Мои
-            заказы
-          </router-link>
-          <router-link :to="{name: 'Cart'}" class="me-3 py-2 text-dark text-decoration-none">Корзина
-          </router-link> -->
-            <router-link :to="{ name: 'AddPost' }">
-              <img :src="addButton"/>
-            </router-link>
-          </template>
-
-          <!--        auth routes-->
-          <router-link
-              v-if="!store.isAuth"
-              :to="{ name: 'Login' }"
-              class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover"
-          >
-            Авторизация
-          </router-link>
-          <router-link
-              v-if="!store.isAuth"
-              :to="{ name: 'Register' }"
-              class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover"
-          >
-            Регистрация
-          </router-link>
-
-          <span
-              v-if="store.isAuth"
-              @click="logOut"
-              role="button"
-              class="me-3 py-2 text-white text-decoration-none fs-5 ml-4"
-          >Выход</span
-          >
-        </nav>
-      </div>
-    </header>
-
-    <!--  <router-link :to="{name: 'Products'}"> ProductListPage</router-link>-->
-    <!--  <router-link :to="{name: 'CreateProduct'}"> CreateProduct</router-link>-->
-    <!--  <router-link :to="{name: 'EditProduct', params: {'productId':'3'}}"> EditProduct</router-link>-->
-
-    <!--  <router-link :to="{name: 'Orders'}"> OrdersList</router-link>-->
-    <!--  <router-link :to="{name: 'EditOrder', params: {'orderId':'4'}}"> EditOrder</router-link>-->
-  </template>
-  <template v-else>
-
-    <!-- <v-toolbar color="#001427"> 
-      <v-toolbar-title> </v-toolbar-title>
-      <v-btn >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+        <router-link
+            :to="{ name: 'Friends' }"
+            class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
         >
-          <path
-            fill="white"
-            d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
-          />
-        </svg>
-      </v-btn>
-    </v-toolbar> -->
-    <v-container>
-      <v-row>
-        <v-col cols="9">
+          Друзья
+        </router-link>
+        <router-link
+            :to="{ name: 'Chats' }"
+            class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+        >
+          Чаты
+        </router-link>
+        <router-link
+            :to="{ name: 'Profile' }"
+            class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+        >
+          Профиль
+        </router-link>
+      </nav>
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto align-center">
+        <!--        {{ store.isAuth }}-->
+        <!--        {{ store.isAdmin }}-->
+        <!--        admin routes-->
+        <template v-if="store.isAuth && store.isAdmin">
+          <router-link
+              :to="{ name: 'CreateProduct' }"
+              class="me-3 py-2 text-dark text-decoration-none"
+          >Добавить продукт
+          </router-link>
+          <router-link
+              :to="{ name: 'Products' }"
+              class="me-3 py-2 text-dark text-decoration-none"
+          >Список продуктов
+          </router-link>
+          <router-link
+              :to="{ name: 'Orders' }"
+              class="me-3 py-2 text-dark text-decoration-none"
+          >Заказы
+          </router-link>
+        </template>
 
-        </v-col>
-        <v-col cols="3">
-          <v-menu>
-            <template v-slot:activator="{ props }">
-              <v-btn color="#001427" v-bind="props">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
+        <!--        client routes-->
+        <template v-if="store.isAuth && !store.isAdmin">
+          <!-- <router-link :to="{name: 'Products'}" class="me-3 py-2 text-dark text-decoration-none">Список продуктов
+        </router-link>
+        <router-link :to="{name: 'MyOrders'}" class="me-3 py-2 text-dark text-decoration-none">Мои
+          заказы
+        </router-link>
+        <router-link :to="{name: 'Cart'}" class="me-3 py-2 text-dark text-decoration-none">Корзина
+        </router-link> -->
+          <router-link :to="{ name: 'AddPost' }">
+            <img :src="addButton"/>
+          </router-link>
+        </template>
+
+        <!--        auth routes-->
+        <router-link
+            v-if="!store.isAuth"
+            :to="{ name: 'Login' }"
+            class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover"
+        >
+          Авторизация
+        </router-link>
+        <router-link
+            v-if="!store.isAuth"
+            :to="{ name: 'Register' }"
+            class="me-3 py-2 text-white text-decoration-none fs-5 text-teachat__hover"
+        >
+          Регистрация
+        </router-link>
+
+        <span
+            v-if="store.isAuth"
+            @click="logOut"
+            role="button"
+            class="me-3 py-2 text-white text-decoration-none fs-5 ml-4"
+        >Выход</span
+        >
+      </nav>
+    </div>
+  </header>
+
+  <!--  <router-link :to="{name: 'Products'}"> ProductListPage</router-link>-->
+  <!--  <router-link :to="{name: 'CreateProduct'}"> CreateProduct</router-link>-->
+  <!--  <router-link :to="{name: 'EditProduct', params: {'productId':'3'}}"> EditProduct</router-link>-->
+
+  <!--  <router-link :to="{name: 'Orders'}"> OrdersList</router-link>-->
+  <!--  <router-link :to="{name: 'EditOrder', params: {'orderId':'4'}}"> EditOrder</router-link>-->
+
+
+  <!-- <v-toolbar color="#001427">
+    <v-toolbar-title> </v-toolbar-title>
+    <v-btn >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
+        />
+      </svg>
+    </v-btn>
+  </v-toolbar> -->
+  <v-container class="mobile">
+    <v-row>
+      <v-col cols="9">
+
+      </v-col>
+      <v-col cols="3">
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn color="#001427" v-bind="props">
+              <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+              >
+                <path
+                    fill="white"
+                    d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
+                />
+              </svg>
+            </v-btn>
+          </template>
+
+          <v-list bg-color="#001427">
+            <v-list-item>
+              <nav class="mx-12">
+                <router-link
+                    :to="{ name: 'Posts' }"
+                    class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
                 >
-                  <path
-                      fill="white"
-                      d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
-                  />
-                </svg>
-              </v-btn>
-            </template>
+                  Новости
+                </router-link>
+                <router-link
+                    :to="{ name: 'Friends' }"
+                    class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+                >
+                  Друзья
+                </router-link>
+                <router-link
+                    :to="{ name: 'Chats' }"
+                    class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+                >
+                  Чаты
+                </router-link>
+                <router-link
+                    :to="{ name: 'Profile' }"
+                    class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+                >
+                  Профиль
+                </router-link>
+                <v-spacer class="pb-3"></v-spacer>
+                <!--                  <router-link-->
+                <!--                      v-if="!store.isAuth"-->
+                <!--                      :to="{ name: 'Login' }"-->
+                <!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
+                <!--                  >-->
+                <!--                    Авторизация-->
+                <!--                  </router-link>-->
+                <!--                  <router-link-->
+                <!--                      v-if="!store.isAuth"-->
+                <!--                      :to="{ name: 'Register' }"-->
+                <!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
+                <!--                  >-->
+                <!--                    Регистрация-->
+                <!--                  </router-link>-->
 
-            <v-list bg-color="#001427">
-              <v-list-item>
-                <nav class="mx-12">
-                  <router-link
-                      :to="{ name: 'Posts' }"
-                      class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-                  >
-                    Новости
-                  </router-link>
-                  <router-link
-                      :to="{ name: 'Friends' }"
-                      class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-                  >
-                    Друзья
-                  </router-link>
-                  <router-link
-                      :to="{ name: 'Chats' }"
-                      class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-                  >
-                    Чаты
-                  </router-link>
-                  <router-link
-                      :to="{ name: 'Profile' }"
-                      class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
-                  >
-                    Профиль
-                  </router-link>
-                  <v-spacer class="pb-3"></v-spacer>
-<!--                  <router-link-->
-<!--                      v-if="!store.isAuth"-->
-<!--                      :to="{ name: 'Login' }"-->
-<!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
-<!--                  >-->
-<!--                    Авторизация-->
-<!--                  </router-link>-->
-<!--                  <router-link-->
-<!--                      v-if="!store.isAuth"-->
-<!--                      :to="{ name: 'Register' }"-->
-<!--                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"-->
-<!--                  >-->
-<!--                    Регистрация-->
-<!--                  </router-link>-->
+                <span
+                    v-if="store.isAuth"
+                    @click="logOut"
+                    role="button"
+                    class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold ml-4"
+                >Выход</span
+                >
+              </nav>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-col>
 
-                  <span
-                      v-if="store.isAuth"
-                      @click="logOut"
-                      role="button"
-                      class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold ml-4"
-                  >Выход</span
-                  >
-                </nav>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-col>
-
-      </v-row>
-    </v-container>
+    </v-row>
+  </v-container>
 
 
-  </template>
 </template>
 
 <script setup>
@@ -232,7 +229,8 @@ const logOut = () => {
       });
 };
 
-onMounted(() => {});
+onMounted(() => {
+});
 </script>
 <script>
 export default {
@@ -253,17 +251,6 @@ export default {
     ],
   }),
   methods: {
-    isMobile() {
-      if (
-          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-              navigator.userAgent
-          )
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
   },
 };
 </script>
@@ -276,4 +263,34 @@ export default {
 .text-teachat__hover:hover {
   color: #f4d58d;
 }
+
+
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: block;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
+
+@media only screen and (min-device-width: 481px) {
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: block;
+  }
+}
+
 </style>
