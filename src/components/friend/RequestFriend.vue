@@ -1,9 +1,23 @@
 <script setup>
 import CompFriend from "./Friend.vue"
+import {http} from "../../axios/index.js";
 // import {ref} from "vue";
 const props = defineProps({
   friendRequest: Object,
+  getMyFriends: Function,
+  getMyReqFriends: Function,
 })
+
+const acceptRequest = (friendId) => {
+  http.post(`/api/friend_request?friend_id=${friendId}`)
+      .then((res) => {
+        props.getMyFriends()
+        props.getMyReqFriends()
+      })
+      .catch(error => {
+        // todo toast
+      })
+}
 </script>
 <template>
   <v-banner lines="one" class="my-4" bg-color="transparent">
@@ -25,6 +39,7 @@ const props = defineProps({
           size="x-large"
           color="#708D81"
           variant="flat"
+          @click="acceptRequest(props.friendRequest.friend_id)"
       >
         Принять
       </v-btn>

@@ -23,16 +23,16 @@
       >
         Написать
       </v-btn>
-      <v-btn
-          block
-          class="text-none my-4"
-          size="x-large"
-          color="#8D0801"
-          style="color:#f4d58d"
-          variant="flat"
-      >
-        Удалить
-      </v-btn>
+<!--      <v-btn-->
+<!--          block-->
+<!--          class="text-none my-4"-->
+<!--          size="x-large"-->
+<!--          color="#8D0801"-->
+<!--          style="color:#f4d58d"-->
+<!--          variant="flat"-->
+<!--      >-->
+<!--        Удалить-->
+<!--      </v-btn>-->
     </v-banner-text>
   </v-banner>
 </template>

@@ -1,63 +1,101 @@
 <script setup>
 import Friend from "../../components/friend/Friend.vue"
 import RequestFriend from "../../components/friend/RequestFriend.vue"
+import FriendAdd from "../../components/friend/FriendAdd.vue"
 import {onMounted, ref} from "vue";
 import {http} from "../../axios/index.js";
 
 const myFriends = ref([]);
+const search = ref('');
 
-const friendRequests=ref([]);
+const friendRequests = ref([]);
+const userListForAddFriend = ref([]);
+const dialog = ref(false);
 
-onMounted(() => {
+const getMyFriends = () => {
   http.get('/api/friend')
       .then((res) => {
         console.log(res)
         myFriends.value = res.data
       })
-})
-
-onMounted(() => {
+}
+const getMyReqFriends = () => {
   http.get('/api/friend_request')
       .then((res) => {
-        console.log(res)
         friendRequests.value = res.data
       })
+}
+
+
+const getUserListForAddFriend = () => {
+  let url = '/api/friend/list_users_for_add'
+  if (search.value !== "") {
+    url += `?username=${search.value}`
+  }
+  http.get(url)
+      .then((res) => {
+        userListForAddFriend.value = res.data
+      })
+}
+onMounted(() => {
+  getMyFriends()
+  getMyReqFriends()
 })
+
+
+const openModalAddFriend = () => {
+  dialog.value = true;
+  getUserListForAddFriend()
+}
 </script>
 <template>
   <v-container class="" style="width: 25vw">
     <v-row>
-      <v-col class="py-0" cols="11">
-        <v-text-field
-            v-model="search"
-            :rules="searchEngine"
-            variant="outlined"
-            clearable
-            placeholder="Поиск по идентификатору @"
-            type="text"
-            class="text-white"
-            @click:clear="clearMessage"
-            @click:send="findName"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="1">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-        >
-          <path
-              fill="white"
-              d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5q0-1.875-1.312-3.187T9.5 5Q7.625 5 6.313 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14"
-          />
-        </svg>
-      </v-col>
+      <v-text-field
+          v-model="search"
+          variant="outlined"
+          clearable
+          placeholder="Поиск по идентификатору @"
+          type="text"
+          class="text-white"
+          @click:clear="clearMessage"
+          @click:send="findName"
+      ></v-text-field>
+      <v-btn @click="openModalAddFriend" @:keyup.enter="openModalAddFriend" color="#001427" icon="mdi-magnify"
+             density="default"
+             size="large"></v-btn>
+
     </v-row>
   </v-container>
-  <v-title class="text-white mx-4 fs-3" >Заявки в друзья</v-title>
-  <RequestFriend v-for="fr in friendRequests" :key="fr.id" :friendRequest="fr"/>
+  <p class="text-white mx-4 fs-3">Заявки в друзья:</p>
+  <RequestFriend v-for="fr in friendRequests" :key="fr.id" :friendRequest="fr" :getMyFriends="getMyFriends"
+                 :getMyReqFriends="getMyReqFriends"/>
+  <template v-if="friendRequests.length===0">
+    <p class="text-white mx-4 fs-6 ml-10">запросы в друзья не найдены</p>
+  </template>
 
-  <text-title class="text-white mx-4 fs-3">Мои друзья</text-title>
-  <Friend v-for="f in myFriends" :key="f.id" :friend="f" />
+  <p class="text-white mx-4 fs-3">Мои друзья:</p>
+  <Friend v-for="f in myFriends" :key="f.id" :friend="f"/>
+  <template v-if="myFriends.length===0">
+    <p class="text-white mx-4 fs-6 ml-10">друзья не найдены</p>
+  </template>
+
+
+  <v-dialog
+      v-model="dialog"
+      width="auto"
+      scrollable
+  >
+    <v-card color="#001427">
+      <FriendAdd v-for="f in userListForAddFriend"
+                 :key="f.id"
+                 :user="f" search=""
+                 :closeDialog="() => dialog = false"
+                 :getMyFriends="getMyFriends"
+                 :getMyReqFriends="getMyReqFriends"/>
+      <template v-if="userListForAddFriend.length===0">
+        <p class="text-white mx-4 fs-6 ml-10 pt-4">пользователи не найдены</p>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>
