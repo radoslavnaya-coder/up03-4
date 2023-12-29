@@ -49,13 +49,13 @@ const openModalAddFriend = () => {
 }
 </script>
 <template>
-  <v-container class="" style="width: 25vw">
+  <v-container class="search__button" style="width: 35rem">
     <v-row>
       <v-text-field
           v-model="search"
           variant="outlined"
           clearable
-          placeholder="Поиск по идентификатору @"
+          placeholder="Поиск пользователя"
           type="text"
           class="text-white"
           @click:clear="clearMessage"
@@ -67,17 +67,17 @@ const openModalAddFriend = () => {
 
     </v-row>
   </v-container>
-  <p class="text-white mx-4 fs-3">Заявки в друзья:</p>
+  <p class="text-white mx-4 fs-3 friend__p">Заявки в друзья:</p>
   <RequestFriend v-for="fr in friendRequests" :key="fr.id" :friendRequest="fr" :getMyFriends="getMyFriends"
                  :getMyReqFriends="getMyReqFriends"/>
   <template v-if="friendRequests.length===0">
-    <p class="text-white mx-4 fs-6 ml-10">запросы в друзья не найдены</p>
+    <p class="text-white mx-4 fs-6 ml-10">Запросы в друзья не найдены</p>
   </template>
 
-  <p class="text-white mx-4 fs-3">Мои друзья:</p>
+  <p class="text-white mx-4 fs-3 friend__p">Мои друзья:</p>
   <Friend v-for="f in myFriends" :key="f.id" :friend="f"/>
   <template v-if="myFriends.length===0">
-    <p class="text-white mx-4 fs-6 ml-10">друзья не найдены</p>
+    <p class="text-white mx-4 fs-6 ml-10">Друзья не найдены</p>
   </template>
 
 
@@ -94,8 +94,19 @@ const openModalAddFriend = () => {
                  :getMyFriends="getMyFriends"
                  :getMyReqFriends="getMyReqFriends"/>
       <template v-if="userListForAddFriend.length===0">
-        <p class="text-white mx-4 fs-6 ml-10 pt-4">пользователи не найдены</p>
+        <p class="text-white mx-4 fs-6 ml-10 pt-4">Пользователи не найдены</p>
       </template>
     </v-card>
   </v-dialog>
 </template>
+<style scoped>
+@media (max-device-width: 480px) {
+   .search__button{
+    max-width: 20rem;
+  }
+  .friend__p{
+    font-size: 1rem !important;
+  }
+}
+ 
+</style>

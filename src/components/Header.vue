@@ -190,7 +190,7 @@
                     v-if="store.isAuth"
                     @click="logOut"
                     role="button"
-                    class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold ml-4"
+                    class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold"
                 >Выход</span
                 >
               </nav>
