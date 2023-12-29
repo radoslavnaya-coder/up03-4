@@ -95,7 +95,7 @@ const router = createRouter({
       component: Chats,
     },
     {
-      path: "/dialogs",
+      path: "/chats/:chatId",
       name: "Dialogs",
       component: Dialogs,
     },

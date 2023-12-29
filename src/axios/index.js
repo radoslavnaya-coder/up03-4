@@ -1,6 +1,6 @@
 // Set config defaults when creating the instance
 import axios from "axios";
-import {store} from "../store/index.js";
+import {clearStore, store} from "../store/index.js";
 
 export const http = axios.create({
     // baseURL: 'http://176.100.124.36:8000',
@@ -22,7 +22,7 @@ http.interceptors.response.use(response => {
     return response;
 }, error => {
     if (error.response.status === 401) {
-        store.isAuth = false
+        clearStore()
         window.location.href = "/login";
         return Promise.reject(error);
     } else if (error.response.status === 403) {

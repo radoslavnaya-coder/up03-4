@@ -1,6 +1,6 @@
 <template>
   <!-- Banner with alert  -->
-  <router-link :to="{name: 'Dialogs'}">
+  <router-link :to="{name: 'Dialogs' , params: { chatId: props.chat.id }}">
      <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
       alt="Avatar"

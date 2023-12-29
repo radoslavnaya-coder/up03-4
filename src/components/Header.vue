@@ -202,14 +202,16 @@
     </v-row>
   </v-container>
 
-
+  <template v-if="store.isDebug">
+    <h1 class="text-white"> Current user id: {{ store }}</h1>
+  </template>
 </template>
 
 <script setup>
 import {onMounted} from "vue";
 import {http} from "../axios/index.js";
 import {useRouter} from "vue-router";
-import {store} from "../store/index.js";
+import {clearStore, store} from "../store/index.js";
 import imgLogo from "@/assets/logo.png";
 import addButton from "@/assets/addButton.png";
 
@@ -218,16 +220,12 @@ const logOut = () => {
   http
       .get(`/api/logout`)
       .then((res) => {
-        store.isAuth = false;
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_role");
+        clearStore()
         // todo
         window.location.href = "/login";
       })
       .catch(() => {
-        store.isAuth = false;
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_role");
+        clearStore()
       });
 };
 
@@ -235,6 +233,8 @@ onMounted(() => {
 });
 </script>
 <script>
+import {clearStore} from "../store/index.js";
+
 export default {
   data: () => ({
     valid: false,
@@ -252,8 +252,7 @@ export default {
       },
     ],
   }),
-  methods: {
-  },
+  methods: {},
 };
 </script>
 

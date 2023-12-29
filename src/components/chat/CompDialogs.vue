@@ -18,12 +18,12 @@
 
       </v-col>
       <v-col cols="5" class="my-7">
-        <v-text class="text-white fs-5 mx-16">@viliskas</v-text>
+        <v-text class="text-white fs-5 mx-16">@{{curFriend.user_name}}</v-text>
       </v-col>
       <v-col cols="2" align="right">
         <v-img
             alt="Avatar"
-            src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+            :src="curFriend.avatar_src"
             width="122"
             style="border-radius: 10px; border: 1px solid #f4d58d"
             class="v-col-6"
@@ -39,21 +39,22 @@
       side="start"
       @load="load"
   >
-    <template v-slot:empty>
-      <!--      if need empty result -->
-      <!--      <v-alert type="warning">No more items!</v-alert>-->
-    </template>
+    <!--    <template v-slot:empty>-->
+    <!--      if need empty result -->
+    <!--      <v-alert type="warning">No more items!</v-alert>-->
+    <!--    </template>-->
 
     <Message v-for="mess in messages" :key="mess.id" :message="mess" :site="calculateSide(mess.user_id)"/>
-
-
+    <div ref="chatSection"></div>
   </v-infinite-scroll>
+
   <!-- end scroll -->
-  <v-form>
+  <div>
     <v-container>
       <v-row>
         <v-col class="py-0" cols="11">
           <v-text-field
+              v-on:keyup.enter="sendMessage"
               v-model="newMessage.text_messenger"
               variant="outlined"
               clear-icon="mdi-close-circle"
@@ -61,18 +62,16 @@
               placeholder="Напишите сообщение"
               type="text"
               class="text-white"
-              @click:append-inner="toggleMarker"
               @click:append="sendMessage"
-              @click:prepend="changeIcon"
-              @click:clear="clearMessage"
+              :disabled="isMakeRequest"
           ></v-text-field>
         </v-col>
         <v-col cols="1">
-          <v-btn @click="sendMessage" color="#001427" icon="mdi-send" size="x-large"></v-btn>
+          <v-btn @click="sendMessage" :disabled="isMakeRequest" color="#001427" icon="mdi-send" size="x-large"></v-btn>
         </v-col>
       </v-row>
     </v-container>
-  </v-form>
+  </div>
 </template>
 <script setup>
 import Message from "@components/chat/Message.vue"
@@ -80,6 +79,15 @@ import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import {store} from "../../store/index.js"
 import {http} from "../../axios/index.js";
 import {toast} from "vue3-toastify";
+import {useRoute} from 'vue-router'
+
+const route = useRoute();
+
+const chatSection = ref(null);
+
+function endToChat() {
+  chatSection.value.scrollIntoView({block: "end", behavior: "smooth"});
+}
 
 const load = ({done}) => {
   done('empty')
@@ -89,10 +97,16 @@ const newMessage = reactive({
 })
 const messages = ref([])
 const errors = ref([])
+const curFriend = ref({
+  "user_name" : "",
+  "avatar_src" : "",
+})
 const updateTimeIntervalId = ref(null)
+const isMakeRequest = ref(false)
 
 onMounted(() => {
-  getAllMessages()
+  getInfoAboutFriend()
+  getAllMessages().then(() => endToChat())
   updateTimeIntervalId.value = setInterval(getAllMessages, 1500);
 })
 
@@ -101,19 +115,23 @@ onBeforeUnmount(() => {
   clearInterval(updateTimeIntervalId.value);
 });
 
-
+const getInfoAboutFriend = () => {
+  const chatIdString = route.params.chatId
+  return http.get(`/api/chat/${chatIdString}`)
+      .then((res) => curFriend.value = res.data)
+}
 const calculateSide = (userId) => {
-  return store.userId === userId.toString() ? 'right'  : 'left';
+  return store.userId.toString() === userId.toString() ? 'right' : 'left';
 }
 
 const getAllMessages = () => {
-  const chatId = 2
-  http.get(`/api/chat/${chatId}`)
+  const chatIdString = route.params.chatId
+  return http.get(`/api/chat/${chatIdString}/message`)
       .then((res) => {
         messages.value = res.data
         const needReadMessages = []
         for (let m of res.data) {
-          if (m.chat_id === chatId && m.user_id.toString() !== store.userId && m.status === "sent") {
+          if (m.chat_id.toString() === chatIdString && m.user_id.toString() !== store.userId.toString() && m.status === "sent") {
             needReadMessages.push(m.id)
           }
         }
@@ -128,12 +146,17 @@ const getAllMessages = () => {
 
 
 const sendMessage = () => {
-  // todo id chat from router
-  http.post(`/api/chat/2`, newMessage)
+  isMakeRequest.value = true
+  const chatId = route.params.chatId
+  http.post(`/api/chat/${chatId}/message`, newMessage)
       .then((res) => {
+        isMakeRequest.value = false
+        newMessage.text_messenger = ""
         getAllMessages()
+            .then(() => endToChat())
       })
       .catch(error => {
+        isMakeRequest.value = false
         if (error.response.status === 422) {
           errors.value = error.response.data.errors
         }
