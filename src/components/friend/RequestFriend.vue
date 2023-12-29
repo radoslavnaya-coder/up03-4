@@ -1,7 +1,6 @@
 <script setup>
-import CompFriend from "./Friend.vue"
 import {http} from "../../axios/index.js";
-// import {ref} from "vue";
+
 const props = defineProps({
   friendRequest: Object,
   getMyFriends: Function,
