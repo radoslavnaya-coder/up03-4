@@ -9,7 +9,7 @@ const props = defineProps({
   <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
         alt="Avatar"
-        src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+        :src="props.friendRequest.friend_avatar_src"
         width="210"
         style="border-radius: 10px; border: 1px solid #f4d58d;"
         class="v-col-2"

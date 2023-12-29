@@ -2,7 +2,7 @@
   <v-banner lines="one" class="my-4" bg-color="transparent">
     <v-img
         alt="Avatar"
-        src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+        :src="props.friend.avatar_src"
         width="210"
         style="border-radius: 10px; border: 1px solid #f4d58d;"
         class="v-col-2"
@@ -46,7 +46,7 @@ const props = defineProps({
 const router = useRouter();
 
 const redirectToChat= ()=>{
-  router.push({name: 'Dialogs'})
+  router.push({name: 'Dialogs',  params: { chatId: props.friend.chat_id }})
 }
 
 </script>
