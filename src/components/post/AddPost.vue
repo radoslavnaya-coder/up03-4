@@ -24,20 +24,21 @@
       <v-btn @click="addPost" block class="mt-2" color="#708D81">Опубликовать</v-btn>
     </v-container>
   </v-sheet>
-  <v-progress-linear
-      v-model="progress"
-      color="light-blue"
-      height="25"
-      reactive
-  >
-    <strong>{{ progress }} %</strong>
-  </v-progress-linear>
+  <v-container>
+    <v-progress-linear
+        v-model="progress"
+        color="light-blue"
+        height="25"
+        reactive
+    >
+      <strong>{{ progress }} %</strong>
+    </v-progress-linear>
+  </v-container>
 </template>
 <script setup>
 import {reactive, ref} from "vue";
-import {http, upload} from "../../axios/index.js";
+import {upload} from "../../axios/index.js";
 import {useRouter} from 'vue-router'
-import axios from "axios";
 
 const router = useRouter();
 
