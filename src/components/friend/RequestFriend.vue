@@ -17,6 +17,19 @@ const acceptRequest = (friendId) => {
         // todo toast
       })
 }
+
+const cancelRequest = (id) => {
+  http.post(`api/friend_request/cancel/${id}`)
+      .then((res) => {
+        props.getMyFriends()
+        props.getMyReqFriends()
+      })
+      .catch(error => {
+        // todo toast
+      })
+}
+
+
 </script>
 <template>
   <v-banner lines="one" class="my-4 friend__banner" bg-color="transparent">
@@ -31,7 +44,7 @@ const acceptRequest = (friendId) => {
     <v-banner-text class="v-col-8 ml-4 fs-5 friend__text" style="color: #f4d58d">
       @{{ props.friendRequest.friend_name }}
     </v-banner-text>
-    <v-banner-text class="d-flex align-center v-col-2">
+    <v-banner-text class="flex-column v-col-2">
       <v-btn
           block
           class="text-none my-4 friend__button"
@@ -41,6 +54,18 @@ const acceptRequest = (friendId) => {
           @click="acceptRequest(props.friendRequest.friend_id)"
       >
         Принять
+      </v-btn>
+      <v-btn
+          block
+          @click="cancelRequest(props.friendRequest.id)"
+          class="text-none my-4"
+          size="x-large"
+          color="#8D0801"
+          style="color:#f4d58d"
+          variant="flat"
+
+      >
+        Отклонить
       </v-btn>
     </v-banner-text>
   </v-banner>

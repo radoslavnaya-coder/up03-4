@@ -23,24 +23,28 @@
       >
         Написать
       </v-btn>
-<!--      <v-btn-->
-<!--          block-->
-<!--          class="text-none my-4"-->
-<!--          size="x-large"-->
-<!--          color="#8D0801"-->
-<!--          style="color:#f4d58d"-->
-<!--          variant="flat"-->
-<!--      >-->
-<!--        Удалить-->
-<!--      </v-btn>-->
+      <v-btn
+          block
+          @click="deleteFriend(props.friend.user_id)"
+          class="text-none my-4"
+          size="x-large"
+          color="#8D0801"
+          style="color:#f4d58d"
+          variant="flat"
+
+      >
+        Удалить
+      </v-btn>
     </v-banner-text>
   </v-banner>
 </template>
 <script setup>
 import {useRouter} from "vue-router";
+import {http} from "../../axios/index.js";
 
 const props = defineProps({
   friend: Object,
+  updateMyFriends: Function,
 })
 
 const router = useRouter();
@@ -49,6 +53,12 @@ const redirectToChat= ()=>{
   router.push({name: 'Dialogs',  params: { chatId: props.friend.chat_id }})
 }
 
+const deleteFriend = (userId)=>{
+  http.delete(`/api/friend/${userId}`)
+  .then(()=>{
+    props.updateMyFriends();
+  })
+}
 </script>
 <style scoped>
 button {

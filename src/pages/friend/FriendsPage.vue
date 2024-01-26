@@ -75,7 +75,7 @@ const openModalAddFriend = () => {
   </template>
 
   <p class="text-white mx-4 fs-3 friend__p">Мои друзья:</p>
-  <Friend v-for="f in myFriends" :key="f.id" :friend="f"/>
+  <Friend v-for="f in myFriends" :key="f.id" :friend="f" :updateMyFriends="getMyFriends"/>
   <template v-if="myFriends.length===0">
     <p class="text-white mx-4 fs-6 ml-10">Друзья не найдены</p>
   </template>

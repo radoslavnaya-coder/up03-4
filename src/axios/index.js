@@ -2,8 +2,8 @@
 import axios from "axios";
 import {clearStore, store} from "../store/index.js";
 
-const baseUrl = "http://176.100.124.36:8000"
-// const baseUrl = "http://127.0.0.1:8000"
+// const baseUrl = "http://176.100.124.36:8000"
+const baseUrl = "http://127.0.0.1:8000"
 
 export const http = axios.create({
     baseURL: baseUrl,
