@@ -7,10 +7,10 @@
       :src="props.chat.avatar_src"
       width="210"
       style="border-radius: 10px; border: 1px solid #f4d58d"
-      class="v-col-2"
+      class="v-col-2 chat__img"
     >
     </v-img>
-    <v-banner-text class="v-col-9 ml-4 fs-5" style="color: #f4d58d">
+    <v-banner-text class="v-col-9 ml-4 fs-5 chat__text" style="color: #f4d58d">
       @{{props.chat.user_name}}
     </v-banner-text>
 <!--      <v-banner-action-->
@@ -42,5 +42,18 @@ button {
 a{
   text-decoration: none;
   color: black;
+}
+.chat__img{
+  max-width: 10rem;
+}
+@media (max-device-width: 480px){
+  .chat__img{
+    min-width: 4.5rem;
+  }
+  .chat__text{
+    font-size: 0.8rem !important;
+    max-width: 6rem;
+    margin: 0 !important;
+  }
 }
 </style>

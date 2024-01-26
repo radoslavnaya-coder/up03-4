@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="5" class="my-7">
-        <router-link :to="{name: 'Chats'}">
+      <v-col cols="5" class="my-7 dialog__box">
+        <router-link :to="{name: 'Chats'}" class="dialog__user-box">
           <svg
               xmlns="http://www.w3.org/2000/svg"
+              class="dialogs__arrow"
               width="28"
               height="28"
               viewBox="0 0 24 24"
@@ -18,7 +19,7 @@
 
       </v-col>
       <v-col cols="5" class="my-7">
-        <v-text class="text-white fs-5 mx-16">@{{curFriend.user_name}}</v-text>
+        <v-text class="text-white fs-5">@{{curFriend.user_name}}</v-text>
       </v-col>
       <v-col cols="2" align="right">
         <v-img
@@ -26,7 +27,7 @@
             :src="curFriend.avatar_src"
             width="122"
             style="border-radius: 10px; border: 1px solid #f4d58d"
-            class="v-col-6"
+            class="v-col-6 dialogs__img"
         >
         </v-img>
       </v-col>
@@ -35,7 +36,8 @@
   <!-- scroll -->
   <v-infinite-scroll
       status="loading"
-      height="55.5vh"
+      height="39rem"
+      class="dialogs__scroll"
       side="start"
       @load="load"
   >
@@ -52,7 +54,7 @@
   <div>
     <v-container>
       <v-row>
-        <v-col class="py-0" cols="11">
+        <v-col class="py-0" cols="12">
           <v-text-field
               v-on:keyup.enter="sendMessage"
               v-model="newMessage.text_messenger"
@@ -62,13 +64,15 @@
               placeholder="Напишите сообщение"
               type="text"
               class="text-white"
+              append-icon="mdi-send"
               @click:append="sendMessage"
               :disabled="isMakeRequest"
           ></v-text-field>
         </v-col>
-        <v-col cols="1">
+        <!-- Это мусор -->
+        <!-- <v-col cols="1">
           <v-btn @click="sendMessage" :disabled="isMakeRequest" color="#001427" icon="mdi-send" size="x-large"></v-btn>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
   </div>
@@ -172,5 +176,24 @@ button {
 /* width */
 ::-webkit-scrollbar {
   display: none;
+}
+@media (max-device-width: 480px){
+  *{
+    font-size: 0.8rem !important;
+  }
+  .dialogs__arrow{
+    max-width: 1.3rem;
+  }
+  .dialog__box{
+    max-width: 6rem;
+    margin: 1.5rem 0 !important;
+  }
+  .dialogs__img{
+    min-width: 4rem;
+    margin: 0.35rem 0;
+  }
+  .dialogs__scroll{
+    max-height: 31.2rem;
+  }
 }
 </style>

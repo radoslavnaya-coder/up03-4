@@ -5,18 +5,18 @@
         :src="props.user.avatar_src"
         width="210"
         style="border-radius: 10px; border: 1px solid #f4d58d;"
-        class="v-col-2"
+        class="v-col-2 friend-search__img"
     >
     </v-img>
-    <v-banner-text class="v-col-6 ml-4 fs-5" style="color: #f4d58d">
+    <v-banner-text class="v-col-6 ml-4 fs-5 friend-search__name" style="color: #f4d58d">
       @{{ props.user.name }}
 
     </v-banner-text>
-    <v-banner-text class="flex-column v-col-3">
+    <v-banner-text class="flex-column v-col-3 friend-search__add__box">
       <v-btn
           block
           @click="addToFriend(props.user.id)"
-          class="text-none my-4"
+          class="text-none my-4 friend-search__add"
           color="#708D81"
           size="large"
           variant="flat"
@@ -55,5 +55,26 @@ const addToFriend = (friendId) => {
 <style scoped>
 button {
   border-radius: 10px;
+}
+@media (max-device-width:480px){
+  *{
+    font-size: 0.7rem !important;
+  }
+  .friend-search__name{
+    max-width: 6.4rem;
+    margin: 0 !important;
+  }
+  .friend-search__img{
+    min-width: 3rem;
+    max-height: 3rem;
+  }
+  .friend-search__add{
+    min-width: 6rem;
+    max-height: 2.5rem;
+    margin: 0 !important;
+  }
+  .friend-search__add__box{
+    min-width: 7rem;
+  }
 }
 </style>
