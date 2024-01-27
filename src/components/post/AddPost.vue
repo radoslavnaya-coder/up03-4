@@ -21,6 +21,17 @@
           variant="outlined"
       ></v-textarea>
       <span class="d-block mb-4 text-danger" v-if="errors?.description">{{ errors.description[0] }}</span>
+      <v-select
+          v-model="currentCategory"
+          :items="categories"
+          item-title="name"
+          item-value="id"
+          label="Select"
+          persistent-hint
+          return-object
+          single-line
+      ></v-select>
+      <span class="d-block mb-4 text-danger" v-if="errors?.category_id">{{ errors.category_id }}</span>
       <v-btn @click="addPost" block class="mt-2" color="#708D81">Опубликовать</v-btn>
     </v-container>
   </v-sheet>
@@ -36,15 +47,20 @@
   </v-container>
 </template>
 <script setup>
-import {reactive, ref} from "vue";
+import {http} from "../../axios/index.js";
+import {reactive, ref, onMounted} from "vue";
 import {upload} from "../../axios/index.js";
 import {useRouter} from 'vue-router'
 
 const router = useRouter();
 
+const currentCategory = ref({})
+
+const categories = ref([])
+
+
 const errors = ref([])
 const post = reactive({
-  "category_id": 1,
   "title": "",
   "description": "",
   "type": "img",
@@ -69,7 +85,7 @@ const addPost = () => {
       "content_data",
       `/api/post`,
       (formDat) => {
-        formDat.append("category_id", post.category_id);
+        formDat.append("category_id", currentCategory.value.id);
         formDat.append("title", post.title);
         formDat.append("description", post.description);
         formDat.append("type", post.type);
@@ -82,6 +98,18 @@ const addPost = () => {
     }
   })
 }
+
+const getCategories = ()=>{
+  http.get("/api/category")
+  .then((res)=>{
+    categories.value=res.data;
+    currentCategory.value=res.data[0];
+  })
+}
+
+onMounted(()=>{
+  getCategories();
+})
 </script>
 <style scoped>
 @media (max-device-width: 480px) {
