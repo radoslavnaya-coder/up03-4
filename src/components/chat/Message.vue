@@ -25,9 +25,7 @@
           </svg>
           <br>
 
-          <span class="text-white">{{
-              parseDate(props.message.created_at)
-            }}</span>
+          <span class="text-white">{{ parseDate(props.message.created_at) }}</span>
         </div>
       </v-col>
     </v-row>
