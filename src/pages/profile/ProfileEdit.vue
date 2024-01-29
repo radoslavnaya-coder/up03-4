@@ -1,5 +1,4 @@
 <template>
-    <!-- <CompPost v-for="p in posts" :key="p.id" :post="p" /> -->
     <ProfileEdit />       
 </template>
 

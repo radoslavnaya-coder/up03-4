@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <v-row justify="center" a>
-      <v-col cols="2" md="4">
+
+
+    <v-row justify="center">
+      <v-col class="w-100" md="4">
         <div class="d-flex justify-lg-space-between align-center">
           <div class="d-flex w-100 align-center">
             <p class="fs-3 text-white pr-2">@</p>
@@ -10,88 +12,88 @@
                 class="text-white py-1 edit__field"
                 v-model="profile.name"
                 :counter="10"
-                label="Изменить id"
+                label="Изменить username"
             >
             </v-text-field>
           </div>
         </div>
         <span class="d-block mb-4 text-danger ml-9" v-if="errors?.name">{{ errors.name[0] }}</span>
       </v-col>
-      <v-col cols="2">
-        <v-btn @click="editProfile" color="#708D81" class="mt-4 ty-2 edit__button" style="border-radius: 10px">
-          Изменить
-        </v-btn>
-      </v-col>
     </v-row>
-    <v-row justify="center">
-    </v-row>
+
 
     <v-row justify="center">
-      <v-col cols="3">
-        <v-img
-            alt="Avatar"
-            :src="avatarSrc"
-            width="122"
-            style="border-radius: 10px; border: 1px solid #f4d58d"
-            class="v-col-9 edit__avatar"
-        >
-        </v-img>
-      </v-col>
-      <v-col cols="3">
-        <v-file-input
-            label="Выбрать фото"
-            variant="outlined"
-            class="text-white v-col-10 pa-0 ma-0"
-            prepend-icon=""
-            @change="selectFile($event)"
-        ></v-file-input>
+    </v-row>
+    <div class="d-flex justify-center">
+      <div style="border-radius: 10px; border: 1px solid #f4d58d" class="p-5 w-50">
+        <v-row justify="center">
+          <v-img
+              alt="Avatar"
+              :src="avatarSrc"
+              height="400"
+              class="v-col-9 edit__avatar"
+          >
+          </v-img>
+        </v-row>
+        <v-row justify="center" class="">
+          <v-file-input
+              label="Выбрать фото"
+              variant="outlined"
+              class="text-white v-col-10 pa-0 ma-0"
+              prepend-icon=""
+              @change="selectFile($event)"
+              clearable="false"
+              @click:clear="cleanFile"
+          ></v-file-input>
+        </v-row>
+        <v-row>
+          <v-progress-linear
+              v-model="progress"
+              color="light-blue"
+              height="25"
+              reactive
+          >
+            <strong class="text-white">{{ progress }} %</strong>
+          </v-progress-linear>
+        </v-row>
+      </div>
+    </div>
+
+
+    <v-row class="color-category mt-3" align="center">
+      <v-col class="d-flex flex-row align-center justify-center">
+        <div class="w-50">
+          <v-combobox
+              multiple
+              v-model="currentCategories"
+              :items="categories"
+              label="Любимые категории"
+              variant="outlined"
+              item-title="name"
+              item-value="id"
+              center-affix="true"
+          ></v-combobox>
+          <span class="d-block mb-4 text-danger w-50" v-if="errors?.category_id">{{ errors.category_id }}</span>
+        </div>
       </v-col>
     </v-row>
 
-<!--    <v-row class="color-category">-->
-<!--      <v-select-->
-<!--          v-model="currentCategories"-->
-<!--          :items="categories"-->
-<!--          item-title="name"-->
-<!--          item-value="id"-->
-<!--          label="Выберите любимые категории"-->
-<!--          multiple-->
-<!--          persistent-hint-->
-<!--          single-line-->
-<!--      ></v-select>-->
-<!--      <span class="d-block mb-4 text-danger" v-if="errors?.category_id">{{ errors.category_id }}</span>-->
-<!--    </v-row>-->
 
-    <!--//todo like categories-->
-    <v-row class="color-category">
-      <v-combobox
-          multiple
-          v-model="currentCategories"
-          :items="categories"
-          label="Любимые категории"
-          variant="outlined"
-          item-title="name"
-          item-value="id"
-      ></v-combobox>
-      <span class="d-block mb-4 text-danger" v-if="errors?.category_id">{{ errors.category_id }}</span>
+    <v-row class="d-flex justify-center">
+      <v-btn width="50%" @click="editProfile" color="#708D81" class="mt-4 ty-2 edit__button "
+             style="border-radius: 10px">
+        Изменить
+      </v-btn>
     </v-row>
-  </v-container>
 
-  <v-container>
-    <v-progress-linear
-        v-model="progress"
-        color="light-blue"
-        height="25"
-        reactive
-    >
-      <strong>{{ progress }} %</strong>
-    </v-progress-linear>
+
   </v-container>
 </template>
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import {http, upload} from "../../axios/index.js";
 import {useRouter} from 'vue-router'
+import {toast} from "vue3-toastify";
 
 const router = useRouter();
 
@@ -115,6 +117,9 @@ const selectFile = (event) => {
   currentFile.value = event.target.files[0];
 }
 
+const cleanFile = () => {
+  currentFile.value = undefined;
+}
 const editProfile = () => {
   upload(currentFile.value, (event) => {
         progress.value = Math.round((100 * event.loaded) / event.total);
@@ -125,10 +130,8 @@ const editProfile = () => {
         formDat.append("name", profile.name);
         if (currentCategories.value.length > 0) {
           for (let i = 0; i < currentCategories.value.length; i++) {
-            formDat.append('like_categories_ids[]', currentCategories.value[i]);
+            formDat.append('like_categories_ids[]', currentCategories.value[i].id);
           }
-        } else {
-          formDat.append('like_categories_ids[]', "[]");
         }
       }
   ).then((res) => {
@@ -136,6 +139,7 @@ const editProfile = () => {
   }).catch(error => {
     if (error.response.status === 422) {
       errors.value = error.response.data.errors
+      toast.error("ошибка при обновлении")
     }
   })
 }
