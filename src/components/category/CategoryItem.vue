@@ -17,7 +17,8 @@
                style="border-radius: 5px">
           Изменить
         </v-btn>
-        <v-btn @click="" color="#8D0801" class="ml-6 mt-4 ty-2 edit__button" style="border-radius: 5px">
+        <v-btn @click="deleteCategory" color="#8D0801" class="ml-6 mt-4 ty-2 edit__button"
+               style="border-radius: 5px">
           Удалить
         </v-btn>
       </v-col>
@@ -48,6 +49,13 @@ const save = () => {
       .then((res) => {
         props.updateCategories();
         props.setEditCategoryId(0);
+      })
+}
+
+const deleteCategory = () => {
+  http.delete(`/api/category/${props.category.id}`)
+      .then((res) => {
+        props.updateCategories();
       })
 }
 </script>
