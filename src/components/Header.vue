@@ -32,43 +32,21 @@
         >
           Профиль
         </router-link>
+
+        <router-link
+            v-if="store.isAuth && store.isAdmin"
+            :to="{ name: 'CategoryPage' }"
+            class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+        >
+          Категории
+        </router-link>
       </nav>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto align-center">
-        <!--        {{ store.isAuth }}-->
-        <!--        {{ store.isAdmin }}-->
-        <!--        admin routes-->
-        <template v-if="store.isAuth && store.isAdmin">
-          <router-link
-              :to="{ name: 'CreateProduct' }"
-              class="me-3 py-2 text-dark text-decoration-none"
-          >Добавить продукт
-          </router-link>
-          <router-link
-              :to="{ name: 'Products' }"
-              class="me-3 py-2 text-dark text-decoration-none"
-          >Список продуктов
-          </router-link>
-          <router-link
-              :to="{ name: 'Orders' }"
-              class="me-3 py-2 text-dark text-decoration-none"
-          >Заказы
-          </router-link>
-        </template>
-
-        <!--        client routes-->
         <template v-if="store.isAuth && !store.isAdmin">
-          <!-- <router-link :to="{name: 'Products'}" class="me-3 py-2 text-dark text-decoration-none">Список продуктов
-        </router-link>
-        <router-link :to="{name: 'MyOrders'}" class="me-3 py-2 text-dark text-decoration-none">Мои
-          заказы
-        </router-link>
-        <router-link :to="{name: 'Cart'}" class="me-3 py-2 text-dark text-decoration-none">Корзина
-        </router-link> -->
           <router-link :to="{ name: 'AddPost' }">
             <img :src="addButton"/>
           </router-link>
         </template>
-
         <!--        auth routes-->
         <router-link
             v-if="!store.isAuth"
@@ -96,30 +74,7 @@
     </div>
   </header>
 
-  <!--  <router-link :to="{name: 'Products'}"> ProductListPage</router-link>-->
-  <!--  <router-link :to="{name: 'CreateProduct'}"> CreateProduct</router-link>-->
-  <!--  <router-link :to="{name: 'EditProduct', params: {'productId':'3'}}"> EditProduct</router-link>-->
 
-  <!--  <router-link :to="{name: 'Orders'}"> OrdersList</router-link>-->
-  <!--  <router-link :to="{name: 'EditOrder', params: {'orderId':'4'}}"> EditOrder</router-link>-->
-
-
-  <!-- <v-toolbar color="#001427">
-    <v-toolbar-title> </v-toolbar-title>
-    <v-btn >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="white"
-          d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1m0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1M3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1"
-        />
-      </svg>
-    </v-btn>
-  </v-toolbar> -->
   <v-container class="mobile">
     <v-row>
       <v-col cols="9">
@@ -170,21 +125,28 @@
                 >
                   Профиль
                 </router-link>
+                <router-link
+                    v-if="store.isAuth && store.isAdmin"
+                    :to="{ name: 'CategoryPage' }"
+                    class="me-8 py-2 text-white text-decoration-none fs-4 fw-bold"
+                >
+                  Категории
+                </router-link>
                 <v-spacer class="pb-3"></v-spacer>
-                                 <router-link
-                                     v-if="!store.isAuth"
-                                     :to="{ name: 'Login' }"
-                                     class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
-                                 >
-                                   Авторизация
-                                 </router-link>
-                                 <router-link
-                                     v-if="!store.isAuth"
-                                     :to="{ name: 'Register' }"
-                                     class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
-                                 >
-                                   Регистрация
-                                 </router-link>
+                <router-link
+                    v-if="!store.isAuth"
+                    :to="{ name: 'Login' }"
+                    class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
+                >
+                  Авторизация
+                </router-link>
+                <router-link
+                    v-if="!store.isAuth"
+                    :to="{ name: 'Register' }"
+                    class="me-3 py-2 text-white text-decoration-none fs-4 fw-bold text-teachat__hover"
+                >
+                  Регистрация
+                </router-link>
 
                 <span
                     v-if="store.isAuth"
