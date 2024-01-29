@@ -27,6 +27,19 @@ export const upload = (file, onUploadProgress, keyFile, url, callbackAppendFormD
     });
 }
 
+export const multipart = ( onUploadProgress, url, callbackAppendFormData) => {
+    let formData = new FormData();
+
+    callbackAppendFormData(formData)
+
+    return http.post(url, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress
+    });
+}
+
 // Set the AUTH token for any request
 http.interceptors.request.use(function (config) {
     const token = localStorage.getItem('token');

@@ -91,7 +91,7 @@
 </template>
 <script setup>
 import {onMounted, reactive, ref} from "vue";
-import {http, upload} from "../../axios/index.js";
+import {http, multipart, upload} from "../../axios/index.js";
 import {useRouter} from 'vue-router'
 import {toast} from "vue3-toastify";
 
@@ -121,21 +121,42 @@ const cleanFile = () => {
   currentFile.value = undefined;
 }
 const editProfile = () => {
-  upload(currentFile.value, (event) => {
-        progress.value = Math.round((100 * event.loaded) / event.total);
-      },
-      "avatar",
-      `/api/profile`,
-      (formDat) => {
-        formDat.append("name", profile.name);
-        if (currentCategories.value.length > 0) {
-          for (let i = 0; i < currentCategories.value.length; i++) {
-            formDat.append('like_categories_ids[]', currentCategories.value[i].id);
+  let req = null;
+  if (currentFile.value === undefined) {
+    req = multipart(
+        (event) => {
+          progress.value = Math.round((100 * event.loaded) / event.total);
+        },
+        `/api/profile`,
+        (formDat) => {
+          formDat.append("name", profile.name);
+          if (currentCategories.value.length > 0) {
+            for (let i = 0; i < currentCategories.value.length; i++) {
+              formDat.append('like_categories_ids[]', currentCategories.value[i].id);
+            }
           }
         }
-      }
-  ).then((res) => {
+    )
+  } else {
+    req = upload(currentFile.value, (event) => {
+          progress.value = Math.round((100 * event.loaded) / event.total);
+        },
+        "avatar",
+        `/api/profile`,
+        (formDat) => {
+          formDat.append("name", profile.name);
+          if (currentCategories.value.length > 0) {
+            for (let i = 0; i < currentCategories.value.length; i++) {
+              formDat.append('like_categories_ids[]', currentCategories.value[i].id);
+            }
+          }
+        }
+    )
+  }
+
+  req.then((res) => {
     router.push({name: 'Profile'})
+    cleanFile()
   }).catch(error => {
     if (error.response.status === 422) {
       errors.value = error.response.data.errors
@@ -159,7 +180,7 @@ onMounted(() => {
 
         avatarSrc.value = res.data.avatar_src
         profile.name = res.data.name
-        currentCategories.value = res.data.like_categories.map((elem) => elem.id);
+        currentCategories.value = res.data.like_categories;
         console.log(currentCategories.value)
       })
   getCategories();
