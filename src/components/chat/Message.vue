@@ -3,7 +3,7 @@
     <v-row :class="{'flex-row-reverse':props.site === 'right'}">
       <v-col>
         <v-card
-        class="message__box"
+            class="message__box"
             width="600"
             color="white"
             :subtitle="'@'+props.message.user_name"
@@ -24,7 +24,10 @@
                   d="m6 17.3l-4.25-4.25q-.3-.3-.288-.7t.313-.7q.3-.275.7-.288t.7.288l3.55 3.55l1.4 1.4l-.725.7q-.3.275-.7.288T6 17.3m5.65 0L7.4 13.05q-.275-.275-.275-.687t.275-.713q.3-.3.713-.3t.712.3l3.525 3.525l8.5-8.5q.3-.3.7-.287t.7.312q.275.3.288.7t-.288.7l-9.2 9.2q-.3.3-.7.3t-.7-.3m.7-4.95l-1.425-1.4l4.25-4.25q.275-.275.688-.275t.712.275q.3.3.3.713t-.3.712z"/>
           </svg>
           <br>
-          <v-text :text="props.message.timestamp" class="text-white">{{ props.message.created_at[11]+props.message.created_at[12]+props.message.created_at[13]+props.message.created_at[14]+props.message.created_at[15] }}</v-text>
+
+          <span class="text-white">{{
+              parseDate(props.message.created_at)
+            }}</span>
         </div>
       </v-col>
     </v-row>
@@ -42,15 +45,25 @@ const props = defineProps({
   message: Object,
 })
 
+const parseDate = (d) => {
+  let date = new Date(d);
+  return date.toLocaleTimeString("ru-Ru", {
+        "hour": "2-digit",
+        "minute": "2-digit",
+        hourCycle: "h24",
+      }
+  )
+};
 
 </script>
 
 <style scoped>
-@media (max-device-width: 480px){
-  *{
+@media (max-device-width: 480px) {
+  * {
     font-size: 0.8rem !important;
   }
-  .message__box{
+
+  .message__box {
     max-width: 12.8rem;
   }
 }
