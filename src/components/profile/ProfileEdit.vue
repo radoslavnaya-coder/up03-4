@@ -47,21 +47,36 @@
         ></v-file-input>
       </v-col>
     </v-row>
+
+<!--    <v-row class="color-category">-->
+<!--      <v-select-->
+<!--          v-model="currentCategories"-->
+<!--          :items="categories"-->
+<!--          item-title="name"-->
+<!--          item-value="id"-->
+<!--          label="Выберите любимые категории"-->
+<!--          multiple-->
+<!--          persistent-hint-->
+<!--          single-line-->
+<!--      ></v-select>-->
+<!--      <span class="d-block mb-4 text-danger" v-if="errors?.category_id">{{ errors.category_id }}</span>-->
+<!--    </v-row>-->
+
+    <!--//todo like categories-->
+    <v-row class="color-category">
+      <v-combobox
+          multiple
+          v-model="currentCategories"
+          :items="categories"
+          label="Любимые категории"
+          variant="outlined"
+          item-title="name"
+          item-value="id"
+      ></v-combobox>
+      <span class="d-block mb-4 text-danger" v-if="errors?.category_id">{{ errors.category_id }}</span>
+    </v-row>
   </v-container>
-  <!--//todo like categories-->
-  <!--  <v-combobox-->
-  <!--      multiple-->
-  <!--      label="Любимые категории"-->
-  <!--      :items="[-->
-  <!--              'Спорт',-->
-  <!--              'Музыка',-->
-  <!--              'Рисование',-->
-  <!--              'Мода',-->
-  <!--              'Повседневная жизнь',-->
-  <!--            ]"-->
-  <!--      variant="outlined"-->
-  <!--      style="color: white"-->
-  <!--  ></v-combobox>-->
+
   <v-container>
     <v-progress-linear
         v-model="progress"
@@ -80,15 +95,20 @@ import {useRouter} from 'vue-router'
 
 const router = useRouter();
 
+
+const currentCategories = ref([])
+
+const categories = ref([])
+
 const profile = reactive({
   "name": "",
-  "like_categories_ids": []
 });
 const avatarSrc = ref('')
 const errors = ref([])
 //file
 const currentFile = ref(undefined)
 const progress = ref(0)
+
 
 const selectFile = (event) => {
   progress.value = 0;
@@ -103,11 +123,11 @@ const editProfile = () => {
       `/api/profile`,
       (formDat) => {
         formDat.append("name", profile.name);
-        if (profile.like_categories_ids.length > 0) {
-          for (let i = 0; i < profile.like_categories_ids.length; i++) {
-            formDat.append('like_categories_ids[]', profile.like_categories_ids[i]);
+        if (currentCategories.value.length > 0) {
+          for (let i = 0; i < currentCategories.value.length; i++) {
+            formDat.append('like_categories_ids[]', currentCategories.value[i]);
           }
-        }else{
+        } else {
           formDat.append('like_categories_ids[]', "[]");
         }
       }
@@ -120,6 +140,14 @@ const editProfile = () => {
   })
 }
 
+const getCategories = () => {
+  http.get("/api/category")
+      .then((res) => {
+        categories.value = res.data;
+      })
+}
+
+
 onMounted(() => {
   http.get('/api/profile')
       .then((res) => {
@@ -127,8 +155,10 @@ onMounted(() => {
 
         avatarSrc.value = res.data.avatar_src
         profile.name = res.data.name
-        // profile.like_categories_ids=res.data.like_categories  todo array object => array ids
+        currentCategories.value = res.data.like_categories.map((elem) => elem.id);
+        console.log(currentCategories.value)
       })
+  getCategories();
 })
 
 </script>
@@ -137,6 +167,7 @@ onMounted(() => {
   .edit__field {
     min-width: 8.5em;
   }
+
 
   .justify-center {
     justify-content: flex-start !important;
@@ -151,5 +182,9 @@ onMounted(() => {
   .edit__avatar {
     min-width: 7em;
   }
+}
+
+.color-category {
+  color: #f4d58d;
 }
 </style>

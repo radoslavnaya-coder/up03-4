@@ -12,6 +12,7 @@ import Chats from '../pages/chat/Chats.vue'
 import Dialogs from "../pages/chat/Dialogs.vue";
 import Profile from '../pages/profile/Profile.vue'
 import ProfileEdit from '../pages/profile/ProfileEdit.vue'
+import CategoryPage from '../pages/category/CategoryPage.vue'
 
 import OrderListPage from '../pages/order/OrderListPage.vue'
 import EditOrdersPage from '../pages/order/EditOrderPage.vue'
@@ -105,9 +106,14 @@ const router = createRouter({
       component: Profile,
     },
     {
-      path: "/profileEdit",
+      path: "/profile/edit",
       name: "ProfileEdit",
       component: ProfileEdit,
+    },
+    {
+      path: "/categories",
+      name: "CategoryPage",
+      component: CategoryPage,
     },
   ],
 });

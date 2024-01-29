@@ -59,6 +59,8 @@
   <!--    </v-row>-->
   <!--  </v-container>-->
 
+
+
 </template>
 
 <script setup>
@@ -83,11 +85,11 @@ onMounted(() => {
   .profile-user__text{
     font-size: 1em !important;
     max-width: 12.5em;
-    padding-right: 0 !important; 
+    padding-right: 0 !important;
     padding-left: 0 !important;
   }
   .editProfile__logo{
-    width: 1.5em; 
+    width: 1.5em;
     height: 1.5em;
     margin: 0;
   }
